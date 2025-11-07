@@ -89,6 +89,15 @@ function ProductDetails() {
           <QuantitySelector quantity={quantity} setQuantity={setQuantity} stock={product.stock}/>
 
           <button onClick={handleAddCart} className="mt-6 bg-yellow-500 text-white px-8 py-3 rounded-full font-semibold hover:bg-yellow-600 transition">Add to cart</button>
+          <button onClick={()=>{
+            if(!isloggedin){
+                alert("please log in ")
+                navigate("/login")
+                return
+            }
+            addToCart(product,quantity)
+            navigate("/checkout")
+          }} className="flex-1 bg-green-500 text-white px-8 py-3 rounded-full font-semibold hover:bg-green-600 transition"> Buy NOW </button>
 
            </div>
         </div>

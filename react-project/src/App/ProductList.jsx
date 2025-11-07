@@ -1,9 +1,11 @@
 import axios from 'axios'
-import React, {  useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import React, {  useContext, useEffect, useState } from 'react'
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
 import SearchBAR from './SearchBAR'
 // import {  Star } from 'lucide-react'
 import RatingStar from './RatingStar'
+import { CartContest } from './Cartcomponent/CartContest'
+import { AuthContest } from '../User-Auth/Authcontest'
 
 function Product() {
   const{category}=useParams()
@@ -12,6 +14,9 @@ function Product() {
   const [error,setError]=useState(null)
   const [searchQuery,setSearchQuery]=useState("")
   const[sort,setSort]=useState("")
+  const {isloggedin}=useContext(AuthContest)
+  const {addToCart}=useContext(CartContest)
+  const navigate=useNavigate
 
 
   useEffect(()=>{
@@ -121,7 +126,16 @@ function Product() {
             <p className='text-gray-500 mt-1'>${product.price}</p>
             <p className='text-sm text-yellow-600 capitalize mt-1'>{product.brand}</p>
             <p className='text-sm text-yellow-500 capitalize mt-1'>{product.category}</p>
-            <button className="mt-4 w-full bg-yellow-500 text-white py-2 rounded-lg hover:bg-yellow-600 transition">Add cart</button>
+            <button onClick={(e)=>{e.preventDefault();
+              if(!isloggedin){
+                alert("please log in")
+                navigate("/login")
+                return
+              }
+               addToCart(product)
+               alert(`${product.name}add to the cart`)
+              }} 
+               className="mt-4 w-full bg-yellow-500 text-white py-2 rounded-lg hover:bg-yellow-600 transition">Add cart</button>
             </div>
            </div>
            </Link>

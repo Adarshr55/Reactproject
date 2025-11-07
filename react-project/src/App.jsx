@@ -8,6 +8,9 @@
   import ProductList from './App/ProductList'
   import Navbar from './App/Navbar'
   import ProductDetails from './App/ProductDetails'
+import Checkout from './App/CheckOut/CheckOut'
+import OrderSuccess from './App/CheckOut/OrderSuccess'
+import MyOrder from './App/CheckOut/MyOrder'
 
   function App() {
     return (
@@ -22,6 +25,9 @@
         <Route path='/products/:category'element={<ProductList/>}/>
         <Route path="/product/:id" element={<ProductDetails/>}/>
         <Route path="/cart"element={<ProtectedRoute> <Cart/> </ProtectedRoute>}/>
+        <Route path='/checkout'element={<ProtectedRoute><Checkout/></ProtectedRoute>}/>
+        <Route path='/order-success'element={<ProtectedRoute><OrderSuccess/></ProtectedRoute>}/>
+        <Route path='/myorder'element={<ProtectedRoute><MyOrder/></ProtectedRoute>}/>
       </Routes>
       
       </>

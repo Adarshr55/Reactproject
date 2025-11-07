@@ -20,6 +20,15 @@
   "cart": [
     {
       "userId": "1aa5",
+      "items": [],
+      "id": "18cd"
+    }
+  ],
+  "orders": [
+    {
+      "id": "9fb4",
+      "userId": "1aa5",
+      "username": "adarsh",
       "items": [
         {
           "productId": "1",
@@ -36,7 +45,112 @@
           "quantity": 4
         }
       ],
-      "id": "18cd"
+      "total": 1351.96,
+      "address": {
+        "fullname": "adarsh",
+        "address": "asdsf",
+        "city": "palakkad kerala",
+        "phone": "12345",
+        "payment": "COD"
+      },
+      "createdAt": "Fri Nov 07 2025 16:45:36 GMT+0530 (India Standard Time)",
+      "status": "pending"
+    },
+    {
+      "id": "4bd0",
+      "userId": "1aa5",
+      "username": "adarsh",
+      "items": [
+        {
+          "productId": "1",
+          "name": "Classic Leather Loafers",
+          "price": 189.99,
+          "thumbnail": "/images/1.jpg",
+          "quantity": 1
+        }
+      ],
+      "total": 189.99,
+      "address": {
+        "fullname": "adarsh",
+        "address": "asdsf",
+        "city": "palakkad kerala",
+        "phone": "12345",
+        "payment": "COD"
+      },
+      "createdAt": "Fri Nov 07 2025 17:36:32 GMT+0530 (India Standard Time)",
+      "status": "pending"
+    },
+    {
+      "id": "58fa",
+      "userId": "1aa5",
+      "username": "adarsh",
+      "items": [
+        {
+          "productId": "1",
+          "name": "Classic Leather Loafers",
+          "price": 189.99,
+          "thumbnail": "/images/1.jpg",
+          "quantity": 1
+        }
+      ],
+      "total": 189.99,
+      "address": {
+        "fullname": "adarsh",
+        "address": "asdsf",
+        "city": "palakkad kerala",
+        "phone": "12345",
+        "payment": "COD"
+      },
+      "createdAt": "Fri Nov 07 2025 17:44:03 GMT+0530 (India Standard Time)",
+      "status": "pending"
+    },
+    {
+      "id": "6f92",
+      "userId": "1aa5",
+      "username": "adarsh",
+      "items": [
+        {
+          "productId": "3",
+          "name": "Floral Print Espadrilles",
+          "price": 69.9,
+          "thumbnail": "/images/3.jpg",
+          "quantity": 1
+        }
+      ],
+      "total": 69.9,
+      "address": {
+        "fullname": "adarsh",
+        "address": "asdsf",
+        "city": "palakkad kerala",
+        "phone": "12345",
+        "payment": "COD"
+      },
+      "createdAt": "Fri Nov 07 2025 19:45:36 GMT+0530 (India Standard Time)",
+      "status": "pending"
+    },
+    {
+      "id": "8482",
+      "userId": "1aa5",
+      "username": "adarsh",
+      "items": [
+        {
+          "productId": "4",
+          "name": "Light-Up Graphic Sneakers",
+          "price": 39.99,
+          "thumbnail": "/images/4.jpg",
+          "quantity": 1
+        }
+      ],
+      "total": 39.99,
+      "address": {
+        "fullname": "adarsh",
+        "address": "asdsf",
+        "city": "palakkad kerala",
+        "phone": "12345",
+        "payment": "COD"
+      },
+      "createdAt": "Fri Nov 07 2025 21:27:14 GMT+0530 (India Standard Time)",
+      "status": "pending"
     }
   ],
   "products": [

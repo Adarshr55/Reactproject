@@ -14,7 +14,7 @@ function Navbar() {
     const navigate=useNavigate()
     const handlelogout=()=>{
         logout()
-        navigate("/login")
+        navigate("/")
     }
     
 
@@ -40,6 +40,9 @@ function Navbar() {
         {totalItems >0&&(
         <span className='absolute -top-2 -right-2 bg-yellow-500 text-white text-xs font-bold rounded-full px-1.5'>{totalItems}</span>)}
         </Link>
+        {isloggedin &&(
+            <button onClick={()=>navigate("/myorder")} className='flex items-center gap-1 text-gray-800 hover:text-yellow-500 transition'> <span className='font-semibold'> My Orders</span></button>
+        )}
         {!isloggedin ?(
             <button onClick={()=>navigate("/login")} className='flex items-center gap-1 text-gray-800 hover:text-yellow-500 transition'><LogIn className="w-5 h-5"/>
             <span className='font-semibold'>Login</span>

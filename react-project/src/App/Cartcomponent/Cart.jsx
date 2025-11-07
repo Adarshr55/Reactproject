@@ -62,7 +62,7 @@ function Cart() {
         </div>
         <div className='flex flex-col sm:flex-row justify-end gap-4 mt-6'>
           <button onClick={clearCart} className="px-8 py-2 rounded-full font-semibold bg-yellow-500 text-white hover:bg-yellow-600 transition">Clear Cart</button>
-          <button className="px-8 py-2 rounded-full font-semibold bg-yellow-500 text-white hover:bg-yellow-600 transition">Proceed to Checkout</button>
+          <button onClick={()=>navigate("/checkout")} className="px-8 py-2 rounded-full font-semibold bg-yellow-500 text-white hover:bg-yellow-600 transition">Proceed to Checkout</button>
         </div>
       </div>
 
