@@ -1,6 +1,8 @@
 import React from 'react'
 import Navbar from './Navbar'
 import { useNavigate } from 'react-router-dom'
+import NewsLetterSection from './HomeUI/NewsLetterSection'
+import Footer from './HomeUI/Footer'
 
 function Home() {
     const navigate=useNavigate()
@@ -11,7 +13,7 @@ function Home() {
 
   return (
 
-     <div className="bg-gray-100 w-full h-screen overflow-hidden">
+     <div className="bg-gray-100 w-full min-h-screen  overflow-hidden">
       {/* <Navbar /> */}
   
       <div
@@ -23,7 +25,7 @@ function Home() {
         }}
       >
 
-        <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]"></div>
+        <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
 
          
         <div className="relative z-10 max-w-2xl space-y-6">
@@ -42,7 +44,10 @@ function Home() {
 
         <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-gray-900/40 to-transparent"></div>
       </div>
+      <NewsLetterSection className="mt-12"/>
+      <Footer/>
     </div>
+    
   )
 }
 

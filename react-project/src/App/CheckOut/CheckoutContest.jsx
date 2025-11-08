@@ -3,6 +3,7 @@ import { CartContest } from '../Cartcomponent/CartContest'
 import { AuthContest } from '../../User-Auth/Authcontest'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import toast from 'react-hot-toast'
 
 export const CheckoutContest=createContext()
  export const CheckoutProvider=({children})=>{
@@ -27,7 +28,8 @@ export const CheckoutContest=createContext()
     const handleOrderSubmit= async(e)=>{
         e.preventDefault()
         if(cart.length===0){
-            alert("you cart is empty")
+            // alert("you cart is empty")
+            toast.error("toy cart is empty")
             return
         }
         setLoading(true)
@@ -43,12 +45,14 @@ export const CheckoutContest=createContext()
             }
             await axios.post(`http://localhost:5000/orders`,orderData)
             clearCart()
-            alert("order placed succefully")
+            // alert("order placed succefully")
+            toast.success("order placed successfully")
             navigate("/order-success")
         }
         catch(err){
             console.error("error order placing ",err)
-            alert("failed to place the order")
+            // alert("failed to place the order")
+            toast.error("faild to place the order")
         }
         finally{
             setLoading(false)

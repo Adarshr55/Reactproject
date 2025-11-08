@@ -11,11 +11,14 @@
 import Checkout from './App/CheckOut/CheckOut'
 import OrderSuccess from './App/CheckOut/OrderSuccess'
 import MyOrder from './App/CheckOut/MyOrder'
+import { Toaster } from 'react-hot-toast'
 
   function App() {
     return (
 
       <>
+      <Toaster position='top-center'toastOptions={{duration:400,
+        style:{background:"#fff",color: "#333",borderRadius:"10px", boxShadow:"0 4px 10px rgba(0,0,0,0.1)"}}}/>
       <Navbar/>
       <Routes>
         <Route path='/'element={<Home/>}/>

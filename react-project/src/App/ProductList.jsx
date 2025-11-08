@@ -6,6 +6,7 @@ import SearchBAR from './SearchBAR'
 import RatingStar from './RatingStar'
 import { CartContest } from './Cartcomponent/CartContest'
 import { AuthContest } from '../User-Auth/Authcontest'
+import toast from 'react-hot-toast'
 
 function Product() {
   const{category}=useParams()
@@ -128,12 +129,14 @@ function Product() {
             <p className='text-sm text-yellow-500 capitalize mt-1'>{product.category}</p>
             <button onClick={(e)=>{e.preventDefault();
               if(!isloggedin){
-                alert("please log in")
+                // alert("please log in")
+                toast.error("please log in")
                 navigate("/login")
                 return
               }
                addToCart(product)
-               alert(`${product.name}add to the cart`)
+              //  alert(`${product.name}add to the cart`)
+              toast.apply(`${product.namr}added to cart`)
               }} 
                className="mt-4 w-full bg-yellow-500 text-white py-2 rounded-lg hover:bg-yellow-600 transition">Add cart</button>
             </div>

@@ -15,6 +15,14 @@
       "password": "adarsh@123",
       "role": "user",
       "createdAt": "2025-11-05T17:32:58.678Z"
+    },
+    {
+      "id": "c398",
+      "username": "nishad",
+      "email": "nishad@123",
+      "password": "123",
+      "role": "user",
+      "createdAt": "2025-11-08T05:34:23.652Z"
     }
   ],
   "cart": [
@@ -22,6 +30,11 @@
       "userId": "1aa5",
       "items": [],
       "id": "18cd"
+    },
+    {
+      "userId": "c398",
+      "items": [],
+      "id": "56e0"
     }
   ],
   "orders": [
@@ -150,6 +163,92 @@
         "payment": "COD"
       },
       "createdAt": "Fri Nov 07 2025 21:27:14 GMT+0530 (India Standard Time)",
+      "status": "pending"
+    },
+    {
+      "id": "0a3c",
+      "userId": "1aa5",
+      "username": "adarsh",
+      "items": [
+        {
+          "productId": "2",
+          "name": "Air Zoom Pegasus",
+          "price": 120,
+          "thumbnail": "/images/2.jpg",
+          "quantity": 1
+        }
+      ],
+      "total": 120,
+      "address": {
+        "fullname": "adarsh",
+        "address": "asdsf",
+        "city": "palakkad kerala",
+        "phone": "12345",
+        "payment": "COD"
+      },
+      "createdAt": "Sat Nov 08 2025 09:23:49 GMT+0530 (India Standard Time)",
+      "status": "pending"
+    },
+    {
+      "id": "b193",
+      "userId": "1aa5",
+      "username": "adarsh",
+      "items": [
+        {
+          "productId": "3",
+          "name": "Floral Print Espadrilles",
+          "price": 69.9,
+          "thumbnail": "/images/3.jpg",
+          "quantity": 7
+        },
+        {
+          "productId": "4",
+          "name": "Light-Up Graphic Sneakers",
+          "price": 39.99,
+          "thumbnail": "/images/4.jpg",
+          "quantity": 1
+        }
+      ],
+      "total": 529.2900000000001,
+      "address": {
+        "fullname": "adarsh",
+        "address": "asdsf",
+        "city": "TARUR",
+        "phone": "12345",
+        "payment": "COD"
+      },
+      "createdAt": "Sat Nov 08 2025 10:18:14 GMT+0530 (India Standard Time)",
+      "status": "pending"
+    },
+    {
+      "id": "6051",
+      "userId": "c398",
+      "username": "nishad",
+      "items": [
+        {
+          "productId": "10",
+          "name": "Suede Classic Sneakers",
+          "price": 55,
+          "thumbnail": "/images/10.jpg",
+          "quantity": 1
+        },
+        {
+          "productId": "8",
+          "name": "Ultraboost 1.0 Shoes",
+          "price": 180,
+          "thumbnail": "/images/8.jpg",
+          "quantity": 3
+        }
+      ],
+      "total": 595,
+      "address": {
+        "fullname": "nishad",
+        "address": "asdsf",
+        "city": "ASD",
+        "phone": "12345",
+        "payment": "COD"
+      },
+      "createdAt": "Sat Nov 08 2025 11:06:22 GMT+0530 (India Standard Time)",
       "status": "pending"
     }
   ],

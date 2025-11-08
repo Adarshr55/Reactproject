@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { AuthContest } from '../../User-Auth/Authcontest'
 import axios from 'axios'
+import toast from 'react-hot-toast'
 // import { CartContext } from './CartContext'
 export const CartContest = createContext()
 
@@ -32,7 +33,8 @@ export const  CartProvider=({children})=> {
         }
         catch (err){
             console.error("error loading data",err)
-            alert("error loading the cart from server ")
+            // alert("error loading the cart from server ")
+            toast.error("error loading data")
         }finally{
             setLoading(false)
         }
@@ -59,7 +61,8 @@ export const  CartProvider=({children})=> {
     }
     catch(err){
         console.error("Error syncing cart",err)
-        alert("error ")
+        // alert("error ")
+        toast.error("error syncing cart ")
 
     }
   }

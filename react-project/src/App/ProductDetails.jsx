@@ -6,6 +6,7 @@ import RatingStar from './RatingStar'
 import QuantitySelector from './QuantitySelector'
 import { AuthContest } from '../User-Auth/Authcontest'
 import { CartContest } from './Cartcomponent/CartContest'
+import toast from 'react-hot-toast'
 
 
 function ProductDetails() {
@@ -38,12 +39,14 @@ function ProductDetails() {
 
     const handleAddCart=()=>{
         if(!isloggedin){
-            alert("please log in to add items to your cart")
+            // alert("please log in to add items to your cart")
+            toast.error("Please log in to add items to your cart")
             navigate("/login")
             return
         }
         addToCart(product,quantity)
-        alert("product add to cart")
+        // alert("product add to cart")
+        toast.success("product add to cart")
     }
     if(loading){
         return(
@@ -91,7 +94,8 @@ function ProductDetails() {
           <button onClick={handleAddCart} className="mt-6 bg-yellow-500 text-white px-8 py-3 rounded-full font-semibold hover:bg-yellow-600 transition">Add to cart</button>
           <button onClick={()=>{
             if(!isloggedin){
-                alert("please log in ")
+                // alert("please log in ")
+                toast.error("Please log in")
                 navigate("/login")
                 return
             }

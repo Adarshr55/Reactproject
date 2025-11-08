@@ -1,5 +1,6 @@
     import axios from 'axios'
     import React, { useState } from 'react'
+import toast from 'react-hot-toast'
     import { useNavigate } from 'react-router-dom'
 
     function Register() {
@@ -13,7 +14,8 @@
         e.preventDefault()
 
         if(password !==confirmPassword){
-            alert("Password do not match")
+            // alert("Password do not match")
+            toast.error("password do not match")
             return
         }
         try {
@@ -23,7 +25,8 @@
             const userExist=user.find((u)=>u.username===username.trim()||u.email===email.trim())
         
         if(userExist){
-            alert("username or email already exists")
+            // alert("username or email already exists")
+            toast.error("username or email already exists")
             return;
         }
         else{
@@ -35,7 +38,8 @@
                 createdAt: new Date().toISOString(),
             }
             await axios.post("http://localhost:5000/users",newuser);
-            alert("Registeration successfull")
+            // alert("Registeration successfull")
+            toast.success("Registeration successfull")
             navigate("/login")
         }
 

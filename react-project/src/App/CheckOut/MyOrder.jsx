@@ -74,7 +74,7 @@ function MyOrder() {
                   </span>
                   </span>
                   <span className='font-semibold text-gray-800'>
-                    ${order.total.toFixed(2)}
+                    {order.total.toFixed(2)}
                     </span>
                     </div>
                     <OrderSummery cart={order.items} total={order.total} title={false}/>

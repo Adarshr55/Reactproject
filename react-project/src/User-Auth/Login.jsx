@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AuthContest } from './Authcontest'
+import toast from 'react-hot-toast'
 
 function Login() {
     const [userinput,setuserinput]=useState("")
@@ -17,7 +18,8 @@ function Login() {
         
         if(validuser){
             login(validuser)
-            alert("login successsfull") 
+            // alert("login successsfull") 
+            toast.success("Login successfull")
         if(validuser.role==="admin"){
             navigate("/admin")
         }else{
@@ -25,12 +27,14 @@ function Login() {
         }
         }
         else{
-            alert("invalid credentails")
+            // alert("invalid credentails")
+            toast.error("invalid credentails")
         }
     }
     catch(error){
         console.error("error during login",error)
-        alert("Login failed")
+        // alert("Login failed")
+        toast.error("Login failed")
     }
     }
 

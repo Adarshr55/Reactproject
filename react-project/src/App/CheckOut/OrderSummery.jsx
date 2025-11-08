@@ -42,7 +42,7 @@ function OrderSummery({cart:propcart,total:propTotal,title=true}) {
                 </div>
                 </div>
                 <p className='text-gray-800 font-semibold'>
-                    ${(item.price * item.quantity).toFixed(2)}
+                    {(item.price * item.quantity).toFixed(2)}
                 </p>
                 </div>
         ))}
@@ -50,7 +50,7 @@ function OrderSummery({cart:propcart,total:propTotal,title=true}) {
     <div className='mt-6 border-t border-gray-200 pt-4'>
         <div className="flex justify-between text-lg font-semibold text-gray-800">
     
-        <span>Total:</span><span className='text-yellow-600'>${total.toFixed(2)}</span> 
+        <span>Total:</span><span className='text-yellow-600'>{total.toFixed(2)}</span> 
         </div>
     </div>
     </div>
