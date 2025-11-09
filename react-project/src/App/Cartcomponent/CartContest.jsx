@@ -75,7 +75,9 @@ export const  CartProvider=({children})=> {
         item.productId===product.id
         ? {...item,quantity:item.quantity+quantity}
         :item
-     )
+     );
+     toast.dismiss()
+     toast.success("quantity updated in the cart")
     }else{
         upCart=[
             ...cart,{
@@ -87,6 +89,8 @@ export const  CartProvider=({children})=> {
 
             }
         ]
+        toast.dismiss()
+        toast.success(`${product.name}added to cart`)
     }
     setCart(upCart)
     localStorage.setItem("cart", JSON.stringify(upCart))
@@ -117,7 +121,7 @@ export const  CartProvider=({children})=> {
                     userId:user.id,
                     items:[],
                 })
-            }
+            }   
         }
         catch(err){
             console.error("error clearing cart",err)

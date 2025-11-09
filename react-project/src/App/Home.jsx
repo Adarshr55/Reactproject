@@ -3,6 +3,7 @@ import Navbar from './Navbar'
 import { useNavigate } from 'react-router-dom'
 import NewsLetterSection from './HomeUI/NewsLetterSection'
 import Footer from './HomeUI/Footer'
+import FeaturedProducts from './HomeUI/FeaturedProducts'
 
 function Home() {
     const navigate=useNavigate()
@@ -44,6 +45,7 @@ function Home() {
 
         <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-gray-900/40 to-transparent"></div>
       </div>
+      <FeaturedProducts/>
       <NewsLetterSection className="mt-12"/>
       <Footer/>
     </div>

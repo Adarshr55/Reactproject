@@ -1,120 +1,198 @@
-    import axios from 'axios'
-    import React, { useState } from 'react'
-import toast from 'react-hot-toast'
-    import { useNavigate } from 'react-router-dom'
+import React, { useContext, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { AuthContest } from "./Authcontest";
 
-    function Register() {
-        const [username,setusername]=useState("")
-        const [email,setEmail]=useState("")
-        const [password,setPassword]=useState("")
-        const [confirmPassword,setconfirmpassword]=useState("")
-        const navigate=useNavigate()
+const validationSchema = Yup.object({
+  username: Yup.string()
+    .required("Username is required")
+    .min(3, "Username must be at least 3 characters")
+    .matches(/^[a-zA-Z0-9_]+$/, "Username can only contain letters, numbers, and underscores"),
+  
+  email: Yup.string()
+    .required("Email is required")
+    .email("Invalid email format"),
 
-        const handleRegister= async(e)=>{
-        e.preventDefault()
+  password: Yup.string()
+    .required("Password is required")
+    .min(6, "Password must be at least 6 characters"),
 
-        if(password !==confirmPassword){
-            // alert("Password do not match")
-            toast.error("password do not match")
-            return
-        }
-        try {
-            const res= await axios.get(`http://localhost:5000/users`)
-            const user=res.data
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password"), null], "Passwords must match")
+    .required("Confirm password is required"),
+});
 
-            const userExist=user.find((u)=>u.username===username.trim()||u.email===email.trim())
-        
-        if(userExist){
-            // alert("username or email already exists")
-            toast.error("username or email already exists")
-            return;
-        }
-        else{
-            const newuser={
-                username,
-                email,
-                password,
-                role: "user",
-                createdAt: new Date().toISOString(),
-            }
-            await axios.post("http://localhost:5000/users",newuser);
-            // alert("Registeration successfull")
-            toast.success("Registeration successfull")
-            navigate("/login")
-        }
-
-        // eslint-disable-next-line no-unused-vars
-        }catch(_){
-            console.error("error during registration")
-            alert("error")
-
-        }
-
-        }
-
-
-
-    return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 shadow-lg">
-            <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md border border-gray-100  hover:shadow-xl transition duration-300">
-                <h2 className="text-3xl font-extrabold text-center text-gray-900 mb-8 tracking-tight">Create a <span className="text-yellow-500">Account</span> </h2>
-                
-            <form onSubmit={handleRegister} className='space-y-4'>
-                <input 
-                type='text'
-                placeholder='Enter your Name'
-                value={username}
-                onChange={(e)=>setusername(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 outline-none transition"
-                required />
-                <br></br>
-
-                <input 
-                type='email'
-                placeholder='Enter your Email'
-                value={email}
-                onChange={(e)=>setEmail(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 outline-none transition"
-                required />
-                <br></br>
-
-                <input 
-                type='password'
-                placeholder='Enter your Password'
-                value={password}
-                onChange={(e)=>setPassword(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 outline-none transition"
-                required />
-                <br></br>
-
-                <input 
-                type='password'
-                placeholder='Confirm Password'
-                value={confirmPassword}
-                onChange={(e)=>setconfirmpassword(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 outline-none transition"
-                required />
-                <br></br>
-
-                <button type='submit'  className="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 text-white py-2 rounded-full font-semibold shadow-md hover:from-yellow-500 hover:to-yellow-600 hover:shadow-lg transition-all duration-300">
-
-                    Register
-                    </button>
-                    <p className="text-sm text-center mt-4 text-gray-700">
-                        Already have an account?{""}
-                        <span
-                        onClick={()=>navigate("/login")}
-                        className="text-yellow-500 cursor-pointer hover:underline font-semibold">
-                            login here
-                        </span>
-                    </p>
-            </form>
-
-        
-
-        </div>
-        </div>
-    )
+function Register() {
+  const navigate = useNavigate();
+  const {isloggedin}=useContext(AuthContest)
+  useEffect(()=>{
+    if(isloggedin){
+        navigate("/")
     }
+  },[isloggedin,navigate])
 
-    export default Register
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema,
+    onSubmit: async (values, { setSubmitting, resetForm }) => {
+      try {
+        const res = await axios.get("http://localhost:5000/users");
+        const users = res.data;
+
+        const userExists = users.find(
+          (u) =>
+            u.username.toLowerCase() === values.username.toLowerCase().trim() ||
+            u.email.toLowerCase() === values.email.toLowerCase().trim()
+        );
+
+        if (userExists) {
+          toast.error("Username or email already exists");
+          return;
+        }
+
+        const newUser = {
+          username: values.username.trim(),
+          email: values.email.trim(),
+          password: values.password,
+          role: "user",
+          createdAt: new Date().toISOString(),
+        };
+
+        await axios.post("http://localhost:5000/users", newUser);
+        toast.success("Registration successful!");
+        resetForm();
+        navigate("/login");
+      } catch (error) {
+        console.error("Error during registration", error);
+        toast.error("Something went wrong. Please try again!");
+      } finally {
+        setSubmitting(false);
+      }
+    },
+  });
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="bg-white rounded-2xl p-8 w-full max-w-md border border-gray-100 shadow-md hover:shadow-xl transition-transform duration-300">
+        <h2 className="text-3xl font-extrabold text-center text-gray-900 mb-8 tracking-tight">
+          Create an <span className="text-yellow-500">Account</span>
+        </h2>
+
+        <form onSubmit={formik.handleSubmit} className="space-y-4">
+          {/* Username */}
+          <div>
+            <input
+              type="text"
+              name="username"
+              placeholder="Enter your username"
+              value={formik.values.username}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className={`w-full px-4 py-2 border rounded-lg outline-none transition ${
+                formik.touched.username && formik.errors.username
+                  ? "border-red-500 focus:ring-red-400"
+                  : "border-gray-300 focus:ring-yellow-400"
+              }`}
+            />
+            {formik.touched.username && formik.errors.username && (
+              <p className="text-red-500 text-sm mt-1">{formik.errors.username}</p>
+            )}
+          </div>
+
+          {/* Email */}
+          <div>
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className={`w-full px-4 py-2 border rounded-lg outline-none transition ${
+                formik.touched.email && formik.errors.email
+                  ? "border-red-500 focus:ring-red-400"
+                  : "border-gray-300 focus:ring-yellow-400"
+              }`}
+            />
+            {formik.touched.email && formik.errors.email && (
+              <p className="text-red-500 text-sm mt-1">{formik.errors.email}</p>
+            )}
+          </div>
+
+          {/* Password */}
+          <div>
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter your password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className={`w-full px-4 py-2 border rounded-lg outline-none transition ${
+                formik.touched.password && formik.errors.password
+                  ? "border-red-500 focus:ring-red-400"
+                  : "border-gray-300 focus:ring-yellow-400"
+              }`}
+            />
+            {formik.touched.password && formik.errors.password && (
+              <p className="text-red-500 text-sm mt-1">{formik.errors.password}</p>
+            )}
+          </div>
+
+          {/* Confirm Password */}
+          <div>
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm your password"
+              value={formik.values.confirmPassword}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className={`w-full px-4 py-2 border rounded-lg outline-none transition ${
+                formik.touched.confirmPassword && formik.errors.confirmPassword
+                  ? "border-red-500 focus:ring-red-400"
+                  : "border-gray-300 focus:ring-yellow-400"
+              }`}
+            />
+            {formik.touched.confirmPassword && formik.errors.confirmPassword && (
+              <p className="text-red-500 text-sm mt-1">{formik.errors.confirmPassword}</p>
+            )}
+          </div>
+
+          {/* Submit */}
+          <button
+            type="submit"
+            disabled={formik.isSubmitting}
+            className={`w-full bg-gradient-to-r from-yellow-400 to-yellow-500 text-white py-2 rounded-full font-semibold shadow-md transition-all duration-300 ${
+              formik.isSubmitting
+                ? "opacity-70 cursor-not-allowed"
+                : "hover:from-yellow-500 hover:to-yellow-600 hover:shadow-lg"
+            }`}
+          >
+            {formik.isSubmitting ? "Registering..." : "Register"}
+          </button>
+
+          <p className="text-sm text-center mt-4 text-gray-700">
+            Already have an account?{" "}
+            <span
+              onClick={() => navigate("/login")}
+              className="text-yellow-500 cursor-pointer hover:underline font-semibold"
+            >
+              Login here
+            </span>
+          </p>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export default Register;
