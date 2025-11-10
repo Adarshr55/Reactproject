@@ -1,6 +1,14 @@
 {
   "users": [
     {
+      "id": "admin1",
+      "username": "admin",
+      "email": "admin@lux",
+      "password": "admin@123",
+      "role": "admin",
+      "createdAt": "2025-11-10T12:00:00Z"
+    },
+    {
       "id": "8ea8",
       "username": "salman",
       "email": "salman123@gmail.com",
@@ -61,6 +69,16 @@
       "userId": "5abb",
       "items": [],
       "id": "8b3a"
+    },
+    {
+      "id": "eac2",
+      "userId": "b5e1",
+      "items": []
+    },
+    {
+      "id": "04a9",
+      "userId": "admin1",
+      "items": []
     }
   ],
   "orders": [

@@ -26,13 +26,14 @@ const validationSchema = Yup.object({
 });
 
 function Register() {
-  const navigate = useNavigate();
-  const {isloggedin}=useContext(AuthContest)
-  useEffect(()=>{
-    if(isloggedin){
-        navigate("/")
-    }
-  },[isloggedin,navigate])
+//   const navigate = useNavigate();
+//   const {isloggedin}=useContext(AuthContest)
+//   useEffect(()=>{
+//     if(isloggedin){
+//         navigate("/")
+//     }
+//   },[isloggedin,navigate])
+const navigate=useNavigate()
 
   const formik = useFormik({
     initialValues: {

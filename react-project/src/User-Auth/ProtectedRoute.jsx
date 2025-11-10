@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom'
 
 
 function ProtectedRoute({children}) {
-    const {isloggedin}=useContext(AuthContest)
+    const {isloggedin,}=useContext(AuthContest)
   return isloggedin ?children :<Navigate to="/login"></Navigate>
   
 }

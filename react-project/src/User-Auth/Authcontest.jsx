@@ -30,7 +30,7 @@ const logout=()=>{
     localStorage.removeItem("isloggedin")
 }
 return(
-    <AuthContest.Provider value={{user, login,logout,isloggedin:!!user}}>
+    <AuthContest.Provider value={{user, login,logout,isloggedin:!!user,}}>
         {children}
     </AuthContest.Provider>
 )

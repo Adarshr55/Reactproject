@@ -31,11 +31,15 @@ function Login() {
     const navigate=useNavigate()
     const[showPassword,setShowPassword]=useState(false)
 
-    useEffect(()=>{
-        if(isloggedin){
-            navigate("/")
-        }
-    },[isloggedin,navigate])
+    // useEffect(()=>{
+    //     if(isloggedin){
+    //         const storedUser=JSON.parse(localStorage.getItem("user"))
+    //         if(storedUser ?.role==="admin")
+    //         navigate("/admin")
+    //     }else{
+    //         navigate("/")
+    //     }
+    // },[isloggedin,navigate])
 
 
     // const handleLogin=async(e)=>{
@@ -57,6 +61,7 @@ function Login() {
             // alert("login successsfull") 
             toast.success("Login successfull")
         navigate(validuser.role==="admin"?"/admin":"/")
+        console.log("logged IN USER",validuser)
         }
         else{
             // alert("invalid credentails")
