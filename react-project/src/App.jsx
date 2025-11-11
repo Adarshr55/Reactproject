@@ -18,20 +18,19 @@ import GuestProtectRoute from './User-Auth/GuestProtectRoute'
 import AdminOrder from './App/AdminSide/Pages/AdminOrder'
 import AdminUser from './App/AdminSide/Pages/AdminUser'
 import AdminProduct from './App/AdminSide/Pages/AdminProduct'
+import UserLayout from './App/Layouts/UserLayout'
+import AuthLayout from './App/Layouts/AuthLayout'
 
   function App() {
-      const location =useLocation()
-      const isAdminRoute=location.pathname.startsWith("/admin")
     return (
 
       <>
       <Toaster position='top-center'toastOptions={{duration:400,
         style:{background:"#fff",color: "#333",borderRadius:"10px", boxShadow:"0 4px 10px rgba(0,0,0,0.1)"}}}/>
-         { !isAdminRoute && <Navbar/>}
+        
       <Routes>
+        <Route element={<UserLayout/>}>
         <Route path='/'element={<Home/>}/>
-        <Route path='/register'element={<GuestProtectRoute><Register/></GuestProtectRoute>}/>
-        <Route path='/login'element={<GuestProtectRoute><Login/></GuestProtectRoute>}/>
         <Route path='/products'element={<ProductList/>}/>
         <Route path='/products/:category'element={<ProductList/>}/>
         <Route path="/product/:id" element={<ProductDetails/>}/>
@@ -39,10 +38,25 @@ import AdminProduct from './App/AdminSide/Pages/AdminProduct'
         <Route path='/checkout'element={<ProtectedRoute><Checkout/></ProtectedRoute>}/>
         <Route path='/order-success'element={<ProtectedRoute><OrderSuccess/></ProtectedRoute>}/>
         <Route path='/myorder'element={<ProtectedRoute><MyOrder/></ProtectedRoute>}/>
-        <Route path="/admin"element={<ProtectedAdminRoute><AdminDashboard/></ProtectedAdminRoute>}/>
-        <Route path="/admin/admin-order"element={<ProtectedAdminRoute><AdminOrder/></ProtectedAdminRoute>}/>
-        <Route path="/admin/admin-user"element={<ProtectedAdminRoute><AdminUser/></ProtectedAdminRoute>}/>
-        <Route path="/admin-product"element={<ProtectedAdminRoute><AdminProduct/></ProtectedAdminRoute>}/>
+        </Route>
+
+
+
+        <Route element={<AuthLayout/>}>
+        <Route path='/register'element={<GuestProtectRoute><Register/></GuestProtectRoute>}/>
+        <Route path='/login'element={<GuestProtectRoute><Login/></GuestProtectRoute>}/>
+        </Route>
+
+
+
+
+
+        <Route path="/admin"element={<ProtectedAdminRoute><AdminDashboard/></ProtectedAdminRoute>}>
+          <Route index element={<div className="text-center text-gray-500 text-lg">Welcome to Admin Dashboard</div>} />
+          <Route path="order"element={<AdminOrder/>}/>
+          <Route path="user"element={<AdminUser/>}/>
+          <Route path="product"element={<AdminProduct/>}/>
+        </Route>
       </Routes>
       
       </>
