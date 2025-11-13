@@ -846,7 +846,7 @@
       "price": "123",
       "stock": "20",
       "thumbnail": "/images/33.jpg",
-      "isActive": false
+      "isActive": true
     }
   ]
 }
