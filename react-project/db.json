@@ -460,8 +460,9 @@
       "description": "A timeless classic, these loafers are crafted from genuine leather and feature a stylish, modern fit. Perfect for any occasion, offering both comfort and durability.",
       "rating": 4.5,
       "price": 189.99,
-      "stock": 15,
-      "thumbnail": "/images/1.jpg"
+      "stock": "15",
+      "thumbnail": "/images/1.jpg",
+      "isActive": true
     },
     {
       "id": "2",
@@ -472,7 +473,8 @@
       "rating": 4.8,
       "price": 120,
       "stock": 30,
-      "thumbnail": "/images/2.jpg"
+      "thumbnail": "/images/2.jpg",
+      "isActive": true
     },
     {
       "id": "3",
@@ -483,7 +485,8 @@
       "rating": 4.6,
       "price": 69.9,
       "stock": 25,
-      "thumbnail": "/images/3.jpg"
+      "thumbnail": "/images/3.jpg",
+      "isActive": true
     },
     {
       "id": "4",
@@ -494,7 +497,8 @@
       "rating": 4.2,
       "price": 39.99,
       "stock": 50,
-      "thumbnail": "/images/4.jpg"
+      "thumbnail": "/images/4.jpg",
+      "isActive": true
     },
     {
       "id": "5",
@@ -505,7 +509,8 @@
       "rating": 4.9,
       "price": 398,
       "stock": 10,
-      "thumbnail": "/images/5.jpg"
+      "thumbnail": "/images/5.jpg",
+      "isActive": true
     },
     {
       "id": "6",
@@ -516,7 +521,8 @@
       "rating": 4.9,
       "price": 148,
       "stock": 40,
-      "thumbnail": "/images/6.jpg"
+      "thumbnail": "/images/6.jpg",
+      "isActive": true
     },
     {
       "id": "7",
@@ -527,7 +533,8 @@
       "rating": 4.7,
       "price": 49.5,
       "stock": 35,
-      "thumbnail": "/images/7.jpg"
+      "thumbnail": "/images/7.jpg",
+      "isActive": true
     },
     {
       "id": "8",
@@ -538,7 +545,8 @@
       "rating": 4.6,
       "price": 180,
       "stock": 20,
-      "thumbnail": "/images/8.jpg"
+      "thumbnail": "/images/8.jpg",
+      "isActive": true
     },
     {
       "id": "9",
@@ -549,7 +557,8 @@
       "rating": 5,
       "price": 850,
       "stock": 5,
-      "thumbnail": "/images/9.jpg"
+      "thumbnail": "/images/9.jpg",
+      "isActive": true
     },
     {
       "id": "10",
@@ -560,7 +569,8 @@
       "rating": 4.4,
       "price": 55,
       "stock": 60,
-      "thumbnail": "/images/10.jpg"
+      "thumbnail": "/images/10.jpg",
+      "isActive": true
     },
     {
       "id": "11",
@@ -571,7 +581,8 @@
       "rating": 4.4,
       "price": 79.5,
       "stock": 22,
-      "thumbnail": "/images/11.jpg"
+      "thumbnail": "/images/11.jpg",
+      "isActive": true
     },
     {
       "id": "12",
@@ -582,7 +593,8 @@
       "rating": 4.8,
       "price": 165,
       "stock": 18,
-      "thumbnail": "/images/12.jpg"
+      "thumbnail": "/images/12.jpg",
+      "isActive": true
     },
     {
       "id": "13",
@@ -593,7 +605,8 @@
       "rating": 4.7,
       "price": 24.99,
       "stock": 45,
-      "thumbnail": "/images/13.jpg"
+      "thumbnail": "/images/13.jpg",
+      "isActive": true
     },
     {
       "id": "14",
@@ -604,7 +617,8 @@
       "rating": 4.7,
       "price": 140,
       "stock": 28,
-      "thumbnail": "/images/14.jpg"
+      "thumbnail": "/images/14.jpg",
+      "isActive": true
     },
     {
       "id": "15",
@@ -615,7 +629,8 @@
       "rating": 4.9,
       "price": 420,
       "stock": 8,
-      "thumbnail": "/images/15.jpg"
+      "thumbnail": "/images/15.jpg",
+      "isActive": true
     },
     {
       "id": "16",
@@ -626,7 +641,8 @@
       "rating": 4.5,
       "price": 98,
       "stock": 32,
-      "thumbnail": "/images/16.jpg"
+      "thumbnail": "/images/16.jpg",
+      "isActive": true
     },
     {
       "id": "17",
@@ -637,7 +653,8 @@
       "rating": 4.8,
       "price": 65,
       "stock": 40,
-      "thumbnail": "/images/17.jpg"
+      "thumbnail": "/images/17.jpg",
+      "isActive": true
     },
     {
       "id": "18",
@@ -648,7 +665,8 @@
       "rating": 4.7,
       "price": 100,
       "stock": 35,
-      "thumbnail": "/images/18.jpg"
+      "thumbnail": "/images/18.jpg",
+      "isActive": true
     },
     {
       "id": "19",
@@ -659,7 +677,8 @@
       "rating": 4.6,
       "price": 150,
       "stock": 20,
-      "thumbnail": "/images/19.jpg"
+      "thumbnail": "/images/19.jpg",
+      "isActive": true
     },
     {
       "id": "20",
@@ -670,7 +689,8 @@
       "rating": 4.9,
       "price": 65,
       "stock": 55,
-      "thumbnail": "/images/20.jpg"
+      "thumbnail": "/images/20.jpg",
+      "isActive": true
     },
     {
       "id": "21",
@@ -681,7 +701,8 @@
       "rating": 4.6,
       "price": 129,
       "stock": 38,
-      "thumbnail": "/images/21.jpg"
+      "thumbnail": "/images/21.jpg",
+      "isActive": true
     },
     {
       "id": "22",
@@ -692,7 +713,8 @@
       "rating": 4.8,
       "price": 140,
       "stock": 25,
-      "thumbnail": "/images/22.jpg"
+      "thumbnail": "/images/22.jpg",
+      "isActive": true
     },
     {
       "id": "23",
@@ -703,7 +725,8 @@
       "rating": 4.7,
       "price": 45,
       "stock": 50,
-      "thumbnail": "/images/23.jpg"
+      "thumbnail": "/images/23.jpg",
+      "isActive": true
     },
     {
       "id": "24",
@@ -714,7 +737,8 @@
       "rating": 4.7,
       "price": 139.95,
       "stock": 30,
-      "thumbnail": "/images/24.jpg"
+      "thumbnail": "/images/24.jpg",
+      "isActive": true
     },
     {
       "id": "25",
@@ -725,7 +749,8 @@
       "rating": 4.6,
       "price": 75,
       "stock": 40,
-      "thumbnail": "/images/25.jpg"
+      "thumbnail": "/images/25.jpg",
+      "isActive": true
     },
     {
       "id": "26",
@@ -735,8 +760,9 @@
       "description": "Protect your child's feet with these stylish and effective water sandals. They offer UPF 50+ sun protection and are made from a lightweight, quick-dry fabric. The adjustable strap ensures a secure fit.",
       "rating": 4.9,
       "price": 49.99,
-      "stock": 45,
-      "thumbnail": "/images/26.jpg"
+      "stock": "50",
+      "thumbnail": "/images/26.jpg",
+      "isActive": true
     },
     {
       "id": "27",
@@ -747,7 +773,8 @@
       "rating": 4.8,
       "price": 140,
       "stock": 33,
-      "thumbnail": "/images/27.jpg"
+      "thumbnail": "/images/27.jpg",
+      "isActive": true
     },
     {
       "id": "28",
@@ -758,18 +785,20 @@
       "rating": 4.7,
       "price": 75,
       "stock": 28,
-      "thumbnail": "/images/28.jpg"
+      "thumbnail": "/images/28.jpg",
+      "isActive": true
     },
     {
       "id": "29",
-      "name": "Chuck Taylor All-Stars",
+      "name": "Chuck Taylor ",
       "brand": "Converse",
       "category": "kids",
       "description": "A classic high-top sneaker that provides hours of fun. This shoe encourages self-expression and friendly competition. Perfect for school, parties, or a rainy day indoors.",
       "rating": 4.6,
       "price": 40,
       "stock": 60,
-      "thumbnail": "/images/29.jpg"
+      "thumbnail": "/images/29.jpg",
+      "isActive": true
     },
     {
       "id": "30",
@@ -780,7 +809,44 @@
       "rating": 4.5,
       "price": 118,
       "stock": 35,
-      "thumbnail": "/images/30.jpg"
+      "thumbnail": "/images/30.jpg",
+      "isActive": true
+    },
+    {
+      "id": "465e",
+      "name": "boots-formal",
+      "brand": "nike",
+      "category": "men",
+      "description": "wqedca xaswdeFWegthyyfgtdsaAZXSdzsfx",
+      "rating": 4.2,
+      "price": "12",
+      "stock": "10",
+      "thumbnail": "/images/31.jpg",
+      "isActive": true
+    },
+    {
+      "id": "1744",
+      "name": "Classic Clogs",
+      "brand": "Crocs",
+      "category": "kids",
+      "description": "Unleash your child's inner artist with these deluxe, colorful clogs. They feature a comfortable footbed and ventilation ports for breathability. Perfect for creative play.",
+      "rating": "4",
+      "price": "130",
+      "stock": "15",
+      "thumbnail": "/images/32.jpg",
+      "isActive": true
+    },
+    {
+      "id": "3318",
+      "name": "sport shoes",
+      "brand": "nike",
+      "category": "sports",
+      "description": "keeps you running long time",
+      "rating": "3.5",
+      "price": "123",
+      "stock": "20",
+      "thumbnail": "/images/33.jpg",
+      "isActive": false
     }
   ]
 }

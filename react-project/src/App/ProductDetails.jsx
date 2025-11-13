@@ -23,7 +23,12 @@ function ProductDetails() {
         const fetchProduct=async ()=>{
             try{
                 const res=await axios.get(`http://localhost:5000/products/${id}`)
-                setProduct(res.data)
+                if(res.data.isActive===false){
+                    setError("the product is no longer available")
+                }else{
+                    setProduct(res.data)
+                }
+                
             }catch(err){
                 console.error("Error fetching",err)
                 setError("product not found")

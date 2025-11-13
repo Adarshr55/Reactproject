@@ -26,7 +26,7 @@ function Product() {
         setLoading(true)
         const res=await axios.get("http://localhost:5000/products")
         // setProducts(res.data)
-        let data=res.data 
+        let data=res.data.filter((item)=>item.isActive !==false)
         if(category){
           data=data.filter((items)=>items.category.toLowerCase()===category.toLowerCase())
         }

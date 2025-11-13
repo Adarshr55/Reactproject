@@ -20,6 +20,8 @@ import AdminUser from './App/AdminSide/Pages/AdminUser'
 import AdminProduct from './App/AdminSide/Pages/AdminProduct'
 import UserLayout from './App/Layouts/UserLayout'
 import AuthLayout from './App/Layouts/AuthLayout'
+import AdminOverview from './App/AdminSide/Pages/AdminOverview'
+import { AdminProvider } from './App/AdminSide/Contest/AdminContest'
 
   function App() {
     return (
@@ -51,8 +53,13 @@ import AuthLayout from './App/Layouts/AuthLayout'
 
 
 
-        <Route path="/admin"element={<ProtectedAdminRoute><AdminDashboard/></ProtectedAdminRoute>}>
-          <Route index element={<div className="text-center text-gray-500 text-lg">Welcome to Admin Dashboard</div>} />
+        <Route path="/admin"element={
+          <ProtectedAdminRoute>
+            <AdminProvider>
+              <AdminDashboard/>
+              </AdminProvider>
+              </ProtectedAdminRoute>}>
+          <Route index element={<AdminOverview/>} />
           <Route path="order"element={<AdminOrder/>}/>
           <Route path="user"element={<AdminUser/>}/>
           <Route path="product"element={<AdminProduct/>}/>
