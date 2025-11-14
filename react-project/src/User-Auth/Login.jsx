@@ -48,13 +48,45 @@ function Login() {
         initialValues:{userinput:"",password:""},
         validationSchema,
         onSubmit:async (values,{setSubmitting})=>{
-            try{
-                const res=await axios.get("http://localhost:5000/users")
-                const users=res.data
-                const validuser=users.find(
-                    (u)=>(u.username=== values.userinput.trim()||
-                    u.email=== values.userinput.trim()) &&
-                    u.password=== values.password);
+            // try{
+            //     const res=await axios.get("http://localhost:5000/users")
+            //     const users=res.data
+            //     const validuser=users.find(
+            //         (u)=>(u.username=== values.userinput.trim()||
+            //         u.email=== values.userinput.trim()) &&
+            //         u.password=== values.password);
+
+             try {
+        const userInput = values.userinput.trim();
+        const password = values.password;
+
+        // 1️⃣ Fetch admins
+        const adminRes = await axios.get("http://localhost:5000/admins");
+        const admins = adminRes.data;
+
+        // Check admin login
+        const admin = admins.find(
+            (a) =>
+                (a.username === userInput || a.email === userInput) &&
+                a.password === password
+        );
+            if (admin) {
+            login(admin);
+            toast.success("Admin login successful!");
+            navigate("/admin");
+            return;
+        }
+
+        // 2️⃣ Fetch regular users if not admin
+        const userRes = await axios.get("http://localhost:5000/users");
+        const users = userRes.data;
+
+        const validuser = users.find(
+            (u) =>
+                (u.username === userInput || u.email === userInput) &&
+                u.password === password
+        );
+                
             
         if(validuser){
             login(validuser)

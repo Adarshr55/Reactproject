@@ -242,12 +242,12 @@ const[filteredList,setFilteredList]=useState([])
                 <div className="flex flex-col items-center gap-2">
                     <img
                       src={editedProduct.thumbnail ||"/images/no-images.png"}
-                      alt={editedProduct.name}
+                      alt={editedProduct.name} 
                       className="w-28 h-28 object-cover rounded-md border"
                       onError={(e)=>{
                            if (!e.target.dataset.fallback) {
-                            e.target.dataset.fallback = "true";   // mark fallback used once
-                         e.target.src = "/no-image.png";       // local fallback → never fails
+                            e.target.dataset.fallback = "true";   
+                         e.target.src = "/images/no-image.png";       
                          }
 
                       }

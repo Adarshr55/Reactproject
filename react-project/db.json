@@ -1,13 +1,18 @@
 {
-  "users": [
-    {
-      "id": "admin1",
+  "admins":[{
+       "id": "admin1",
       "username": "admin",
       "email": "admin@lux",
       "password": "admin@123",
       "role": "admin",
       "createdAt": "2025-11-10T12:00:00Z"
-    },
+
+  }
+],
+  
+
+  "users": [
+  
     {
       "id": "8ea8",
       "username": "salman",
@@ -45,7 +50,7 @@
       "username": "sajith",
       "email": "sajith@123",
       "password": "123456",
-      "role": "user",
+      "role": "user",   
       "createdAt": "2025-11-08T10:43:33.745Z"
     }
   ],

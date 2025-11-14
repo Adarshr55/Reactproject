@@ -4,8 +4,10 @@ import { Navigate } from 'react-router-dom'
 
 
 function ProtectedRoute({children}) {
-    const {isloggedin,}=useContext(AuthContest)
-  return isloggedin ?children :<Navigate to="/login"></Navigate>
+    const {isloggedin,user}=useContext(AuthContest)
+     if(!isloggedin)return <Navigate to="/login" replace />
+     if(user?.role==="admin")return <Navigate to="/admin" replace/>
+     return children
   
 }
 
