@@ -1,11 +1,25 @@
 import React, { useContext, useEffect, useState,useMemo } from 'react'
 import { AdminUserContest } from '../Contest/AdminUserContest'
 import UserFilter from '../Components/UserFilter'
+import UserDetailModal from '../Components/UserDetailsModal'
 
 function AdminUser() {
     const {users,loadingUsers,errorUsers,fetchAllUsers,toggleBlockUser,toggleDeleteUser}=useContext(AdminUserContest)
     const[showDeleted,setShowDeleted]=useState(false)
     const[filteredUser,setFilteredUsers]=useState([])
+    const [showModal,setShowModal]=useState(false)
+    const[selectedUser,setSelectedUser]=useState(null)
+
+
+    const openUserModal=(user)=>{
+        setSelectedUser(user)
+        setShowModal(true)
+    }
+
+    const closeUserModal=()=>{
+        setSelectedUser(null)
+        setShowModal(false)
+    }
 
     useEffect(()=>{
         fetchAllUsers()
@@ -48,33 +62,37 @@ function AdminUser() {
 
           {/* TABLE */}
           {filteredUser.length === 0 ? (
-            <p>No user found</p>
+              <p className='text-gray-500 text-center py-6'>No user found</p>
           ) : (
-            <table className="w-full border">
-              <thead className="bg-gray-50">
+              <div className='overflow-x-auto rounded-lg shadow-md border border-gray-200'>
+            <table className="w-full text-sm">
+              <thead className="bg-gray-100 text-gray-700 uppercase text-xs">
                 <tr>
-                  <th className="px-3 py-2">Username</th>
-                  <th className="px-3 py-2">Email</th>
-                  <th className="px-3 py-2">Created</th>
-                  <th className="px-3 py-2">Action</th>
+                  <th className="px-4 py-3 text-left">Username</th>
+                  <th className="px-4 py-3 text-left">Email</th>
+                  <th className="px-4 py-3 text-left">Created</th>
+                  <th className="px-4 py-3 text-left">Action</th>
                 </tr>
               </thead>
 
-              <tbody>
+              <tbody className='divide-y divide-gray-200'>
                 {filteredUser.map(u => (
-                  <tr key={u.id} className="border-t">
-                    <td className="px-3 py-2">{u.username}</td>
-                    <td className="px-3 py-2">{u.email}</td>
-                    <td className="px-3 py-2">
+                  <tr key={u.id} className="hover:bg-gray-50 transition duration-150"
+                  onClick={()=>openUserModal(u)}>
+                    <td className="px-4 py-3 font-medium text-gray-900">{u.username}</td>
+                    <td className="px-4 py-3 text-gray-700">{u.email}</td>
+                    <td className="px-4 py-3 text-gray-700">
                       {new Date(u.createdAt).toLocaleString()}
                     </td>
 
-                    <td className="px-3 py-2">
+                    <td className="px-4 py-3 text-gray-700">
                       {/* BLOCK / UNBLOCK */}
                       <button
-                        onClick={() => toggleBlockUser(u.id)}
-                        className={`px-3 py-1 mr-2 rounded ${
-                          u.isBlocked ? 'bg-green-100' : 'bg-red-100'
+                        onClick={(e) =>{
+                            e.stopPropagation()
+                             toggleBlockUser(u.id)}}
+                        className={`px-3 py-1 rounded-md text-sm font-medium border transition ${
+                          u.isBlocked ? 'bg-green-100 border-green-300 text-green-700 hover:bg-green-200' : ' border-red-300 text-red-700 hover:bg-red-200'
                         }`}
                       >
                         {u.isBlocked ? "Unblock" : "Block"}
@@ -82,9 +100,11 @@ function AdminUser() {
 
                       {/* DELETE / RESTORE */}
                       <button
-                        onClick={() => toggleDeleteUser(u.id)}
-                        className={`px-3 py-1 rounded ${
-                          u.isActive ? 'bg-red-100' : 'bg-green-100'
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            toggleDeleteUser(u.id)}}
+                        className={`px-3 py-1 rounded-md text-sm font-medium border transition ${
+                          u.isActive ? ' border-red-300 text-red-700 hover:bg-red-200' : 'bg-green-100 border-green-300 text-green-700 hover:bg-green-200'
                         }`}
                       >
                         {u.isActive ? "Delete" : "Restore"}
@@ -94,6 +114,8 @@ function AdminUser() {
                 ))}
               </tbody>
             </table>
+            <UserDetailModal isOpen={showModal} onClose={closeUserModal} user={selectedUser}/>
+            </div>
           )}
         </>
       )}
