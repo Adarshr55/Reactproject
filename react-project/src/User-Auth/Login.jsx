@@ -60,7 +60,7 @@ function Login() {
         const userInput = values.userinput.trim();
         const password = values.password;
 
-        // 1️⃣ Fetch admins
+        //  Fetch admins
         const adminRes = await axios.get("http://localhost:5000/admins");
         const admins = adminRes.data;
 
@@ -77,18 +77,29 @@ function Login() {
             return;
         }
 
-        // 2️⃣ Fetch regular users if not admin
+        //  Fetch regular users if not admin
         const userRes = await axios.get("http://localhost:5000/users");
         const users = userRes.data;
 
         const validuser = users.find(
-            (u) =>
+            (u) =>u.isActive &&
                 (u.username === userInput || u.email === userInput) &&
                 u.password === password
         );
                 
             
         if(validuser){
+
+            if(validuser.isBlocked){
+                toast.error("Your account is blocked.contact support")
+                setSubmitting(false)
+                return
+            }
+            if(!validuser.isActive){
+                toast.error("This account is deleted.please register again.")
+                setSubmitting(false)
+                return
+            }
             login(validuser)
             // alert("login successsfull") 
             toast.success("Login successfull")

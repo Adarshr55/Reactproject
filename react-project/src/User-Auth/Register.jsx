@@ -52,10 +52,16 @@ const navigate=useNavigate()
           (u) =>
             u.username.toLowerCase() === values.username.toLowerCase().trim() ||
             u.email.toLowerCase() === values.email.toLowerCase().trim()
+            &&
+            u.isActive===true
         );
 
-        if (userExists) {
-          toast.error("Username or email already exists");
+        if(userExists && userExists.isActive===true){
+            toast.error("username or email already exists")
+        }
+
+        if (userExists && userExists.isBlocked===true) {
+          toast.error("This Account is blocked you cannot register again");
           return;
         }
 
@@ -65,6 +71,8 @@ const navigate=useNavigate()
           password: values.password,
           role: "user",
           createdAt: new Date().toISOString(),
+          isActive:true,
+          isBlocked:false
         };
 
         await axios.post("http://localhost:5000/users", newUser);

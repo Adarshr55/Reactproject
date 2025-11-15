@@ -22,12 +22,13 @@ import UserLayout from './App/Layouts/UserLayout'
 import AuthLayout from './App/Layouts/AuthLayout'
 import AdminOverview from './App/AdminSide/Pages/AdminOverview'
 import { AdminProvider } from './App/AdminSide/Contest/AdminContest'
+import { AdminUserProvider } from './App/AdminSide/Contest/AdminUserContest'
 
   function App() {
     return (
 
       <>
-      <Toaster position='top-center'toastOptions={{duration:400,
+      <Toaster position='top-center'toastOptions={{duration:2000,
         style:{background:"#fff",color: "#333",borderRadius:"10px", boxShadow:"0 4px 10px rgba(0,0,0,0.1)"}}}/>
         
       <Routes>
@@ -56,7 +57,9 @@ import { AdminProvider } from './App/AdminSide/Contest/AdminContest'
         <Route path="/admin"element={
           <ProtectedAdminRoute>
             <AdminProvider>
-              <AdminDashboard/>
+              <AdminUserProvider>
+                <AdminDashboard/>
+              </AdminUserProvider>
               </AdminProvider>
               </ProtectedAdminRoute>}>
           <Route index element={<AdminOverview/>} />

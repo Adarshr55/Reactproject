@@ -1,25 +1,24 @@
 {
-  "admins":[{
-       "id": "admin1",
+  "admins": [
+    {
+      "id": "admin1",
       "username": "admin",
       "email": "admin@lux",
       "password": "admin@123",
       "role": "admin",
       "createdAt": "2025-11-10T12:00:00Z"
-
-  }
-],
-  
-
+    }
+  ],
   "users": [
-  
     {
       "id": "8ea8",
       "username": "salman",
       "email": "salman123@gmail.com",
       "password": "salman@123",
       "role": "user",
-      "createdAt": "2025-11-03T10:35:37.975Z"
+      "createdAt": "2025-11-03T10:35:37.975Z",
+      "isActive": true,
+      "isBlocked": false
     },
     {
       "id": "1aa5",
@@ -27,15 +26,19 @@
       "email": "adarshdarshan861@gmail.com",
       "password": "adarsh@123",
       "role": "user",
-      "createdAt": "2025-11-05T17:32:58.678Z"
+      "createdAt": "2025-11-05T17:32:58.678Z",
+      "isActive": true,
+      "isBlocked": false
     },
     {
       "id": "c398",
       "username": "nishad",
       "email": "nishad@123",
-      "password": "123",
+      "password": "1234567",
       "role": "user",
-      "createdAt": "2025-11-08T05:34:23.652Z"
+      "createdAt": "2025-11-08T05:34:23.652Z",
+      "isActive": false,
+      "isBlocked": false
     },
     {
       "id": "1c97",
@@ -43,15 +46,30 @@
       "email": "akhail@123",
       "password": "123456",
       "role": "user",
-      "createdAt": "2025-11-08T09:04:04.071Z"
+      "createdAt": "2025-11-08T09:04:04.071Z",
+      "isActive": true,
+      "isBlocked": false
     },
     {
       "id": "5abb",
       "username": "sajith",
       "email": "sajith@123",
       "password": "123456",
-      "role": "user",   
-      "createdAt": "2025-11-08T10:43:33.745Z"
+      "role": "user",
+      "createdAt": "2025-11-08T10:43:33.745Z",
+      "isActive": true,
+      "isBlocked": false
+    },
+    
+    {
+      "id": "55f5",
+      "username": "nishad",
+      "email": "nishad@123",
+      "password": "nishad",
+      "role": "user",
+      "createdAt": "2025-11-15T05:20:13.410Z",
+      "isActive": true,
+      "isBlocked": false
     }
   ],
   "cart": [
@@ -83,6 +101,21 @@
     {
       "id": "04a9",
       "userId": "admin1",
+      "items": []
+    },
+    {
+      "id": "68bd",
+      "userId": "d257",
+      "items": []
+    },
+    {
+      "id": "7a4e",
+      "userId": "8ea8",
+      "items": []
+    },
+    {
+      "id": "eae1",
+      "userId": "55f5",
       "items": []
     }
   ],
