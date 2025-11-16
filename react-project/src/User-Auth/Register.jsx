@@ -72,7 +72,8 @@ const navigate=useNavigate()
           role: "user",
           createdAt: new Date().toISOString(),
           isActive:true,
-          isBlocked:false
+          isBlocked:false,
+          wishlist:[]
         };
 
         await axios.post("http://localhost:5000/users", newUser);

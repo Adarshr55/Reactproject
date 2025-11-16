@@ -7,6 +7,7 @@ import QuantitySelector from './QuantitySelector'
 import { AuthContest } from '../User-Auth/Authcontest'
 import { CartContest } from './Cartcomponent/CartContest'
 import toast from 'react-hot-toast'
+import { WishListContext } from './Wishlist/WishlistContext'
 
 
 function ProductDetails() {
@@ -18,6 +19,7 @@ function ProductDetails() {
     const navigate=useNavigate()
     const {isloggedin}=useContext(AuthContest)
     const{ addToCart}=useContext(CartContest)
+    const{addToWishlist,removeFromWishlist,isWishlisted}=useContext(WishListContext)
 
     useEffect(()=>{
         const fetchProduct=async ()=>{
@@ -96,17 +98,50 @@ function ProductDetails() {
           )}
           <QuantitySelector quantity={quantity} setQuantity={setQuantity} stock={product.stock}/>
 
-          <button onClick={handleAddCart} className="mt-6 bg-yellow-500 text-white px-8 py-3 rounded-full font-semibold hover:bg-yellow-600 transition">Add to cart</button>
-          <button onClick={()=>{
-            if(!isloggedin){
-                // alert("please log in ")
-                toast.error("Please log in")
-                navigate("/login")
-                return
-            }
-            addToCart(product,quantity)
-            navigate("/checkout")
-          }} className="flex-1 bg-green-500 text-white px-8 py-3 rounded-full font-semibold hover:bg-green-600 transition"> Buy NOW </button>
+  {/* Add to Cart */}
+  <div className="mt-6 space-y-3">
+
+  {/* Row: Add to Cart + Wishlist */}
+  <div className="flex gap-3">
+
+    {/* Add to Cart */}
+    <button
+      onClick={handleAddCart}
+      className="flex-1 bg-yellow-500 text-white py-2.5 rounded-lg font-medium hover:bg-yellow-600 transition"
+    >
+      Add to Cart
+    </button>
+
+    {/* Wishlist */}
+    <button
+      onClick={() => {
+        if (!isloggedin) return navigate("/login");
+        isWishlisted(product.id)
+          ? removeFromWishlist(product.id)
+          : addToWishlist(product);
+      }}
+      className={`flex-1 py-2.5 rounded-lg font-medium transition
+        ${isWishlisted(product.id)
+          ? "bg-red-500 hover:bg-red-600 text-white"
+          : "bg-pink-500 hover:bg-pink-600 text-white"}`}
+    >
+      {isWishlisted(product.id) ? "Wishlisted" : "Wishlist"}
+    </button>
+  </div>
+
+  {/* Buy Now */}
+  <button
+    onClick={() => {
+      if (!isloggedin) return navigate("/login");
+      addToCart(product, quantity);
+      navigate("/checkout");
+    }}
+    className="w-full bg-green-500 text-white py-2.5 rounded-lg font-medium hover:bg-green-600 transition"
+  >
+    Buy Now
+  </button>
+</div>
+
 
            </div>
         </div>

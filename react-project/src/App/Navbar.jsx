@@ -1,15 +1,17 @@
 import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { ShoppingCart, LogIn, LogOut, User, Menu, X } from "lucide-react";
+import { ShoppingCart, LogIn, LogOut, User, Menu, X, Heart } from "lucide-react";
 import { AuthContest } from "../User-Auth/Authcontest";
 import { CartContest } from "./Cartcomponent/CartContest";
 import { useNavigate } from "react-router-dom";
+import { WishListContext } from "./Wishlist/WishlistContext";
 
 function Navbar() {
   const { user, logout, isloggedin } = useContext(AuthContest);
   const { totalItems,cart} = useContext(CartContest);
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const {wishlist}=useContext(WishListContext)
 
   const handleLogout = () => {
     logout();
@@ -62,8 +64,21 @@ function Navbar() {
               <span className="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs font-bold rounded-full px-1.5">
                 {cart.length}
               </span>
-            )}
+            )}           
           </Link>
+          {/* Wishlist Icon */}
+        <Link
+          to="/wishlist"
+          className="relative text-gray-800 hover:text-pink-500 transition"
+           >
+          <Heart className={`w-6 h-6 ${wishlist.length > 0 ? "text-pink-600" : ""}`} />
+            {wishlist.length > 0 && (
+           <span className="absolute -top-2 -right-2 bg-pink-500 text-white text-xs font-bold rounded-full px-1.5">
+            {wishlist.length}
+           </span>
+           )}
+       </Link>
+
 
     
           {isloggedin && (

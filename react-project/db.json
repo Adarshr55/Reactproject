@@ -18,7 +18,8 @@
       "role": "user",
       "createdAt": "2025-11-03T10:35:37.975Z",
       "isActive": true,
-      "isBlocked": false
+      "isBlocked": false,
+      "wishlist": []
     },
     {
       "id": "1aa5",
@@ -28,7 +29,21 @@
       "role": "user",
       "createdAt": "2025-11-05T17:32:58.678Z",
       "isActive": true,
-      "isBlocked": false
+      "isBlocked": false,
+      "wishlist": [
+        {
+          "id": "5",
+          "name": "Cap-Toe Oxford Shoes",
+          "brand": "Hugo Boss",
+          "category": "men",
+          "description": "Make a statement with these impeccably crafted formal Oxfords. Made from premium calfskin leather, they feature a slim profile and classic cap-toe design.",
+          "rating": 4.9,
+          "price": 398,
+          "stock": 10,
+          "thumbnail": "/images/5.jpg",
+          "isActive": true
+        }
+      ]
     },
     {
       "id": "c398",
@@ -38,7 +53,8 @@
       "role": "user",
       "createdAt": "2025-11-08T05:34:23.652Z",
       "isActive": false,
-      "isBlocked": false
+      "isBlocked": false,
+      "wishlist": []
     },
     {
       "id": "1c97",
@@ -48,7 +64,8 @@
       "role": "user",
       "createdAt": "2025-11-08T09:04:04.071Z",
       "isActive": true,
-      "isBlocked": false
+      "isBlocked": false,
+      "wishlist": []
     },
     {
       "id": "5abb",
@@ -58,7 +75,8 @@
       "role": "user",
       "createdAt": "2025-11-08T10:43:33.745Z",
       "isActive": true,
-      "isBlocked": false
+      "isBlocked": false,
+      "wishlist": []
     },
     {
       "id": "55f5",
@@ -68,7 +86,8 @@
       "role": "user",
       "createdAt": "2025-11-15T05:20:13.410Z",
       "isActive": true,
-      "isBlocked": false
+      "isBlocked": false,
+      "wishlist": []
     }
   ],
   "cart": [
@@ -76,11 +95,11 @@
       "userId": "1aa5",
       "items": [
         {
-          "productId": "2",
-          "name": "Air Zoom Pegasus",
-          "price": 120,
-          "thumbnail": "/images/2.jpg",
-          "quantity": 2
+          "productId": "9",
+          "name": "Crystal-Embellished Stilettos",
+          "price": 850,
+          "thumbnail": "/images/9.jpg",
+          "quantity": 1
         }
       ],
       "id": "18cd"
