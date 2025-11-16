@@ -74,7 +74,15 @@
   "cart": [
     {
       "userId": "1aa5",
-      "items": [],
+      "items": [
+        {
+          "productId": "2",
+          "name": "Air Zoom Pegasus",
+          "price": 120,
+          "thumbnail": "/images/2.jpg",
+          "quantity": 2
+        }
+      ],
       "id": "18cd"
     },
     {
@@ -147,7 +155,7 @@
         "phone": "12345",
         "payment": "COD"
       },
-      "createdAt": "Fri Nov 07 2025 16:45:36 GMT+0530 (India Standard Time)",
+      "createdAt": "Fri oc 07 2025 16:45:36 GMT+0530 (India Standard Time)",
       "status": "shipped"
     },
     {
@@ -486,6 +494,54 @@
       },
       "createdAt": "Sun Nov 09 2025 23:19:05 GMT+0530 (India Standard Time)",
       "status": "pending"
+    },
+    {
+      "id": "03b6",
+      "userId": "1aa5",
+      "username": "adarsh",
+      "items": [
+        {
+          "productId": "5",
+          "name": "Cap-Toe Oxford Shoes",
+          "price": 398,
+          "thumbnail": "/images/5.jpg",
+          "quantity": 1
+        }
+      ],
+      "total": 398,
+      "address": {
+        "fullname": "nishad",
+        "address": "asdsf",
+        "city": "palakkad kerala",
+        "phone": "12345",
+        "payment": "COD"
+      },
+      "createdAt": "Sun Nov 16 2025 19:46:01 GMT+0530 (India Standard Time)",
+      "status": "pending"
+    },
+    {
+      "id": "1547",
+      "userId": "1aa5",
+      "username": "adarsh",
+      "items": [
+        {
+          "productId": "7",
+          "name": "Canvas High-Top Sneakers",
+          "price": 49.5,
+          "thumbnail": "/images/7.jpg",
+          "quantity": 1
+        }
+      ],
+      "total": 49.5,
+      "address": {
+        "fullname": "akhail",
+        "address": "asdsf",
+        "city": "TARUR",
+        "phone": "12345",
+        "payment": "COD"
+      },
+      "createdAt": "Sun Nov 16 2025 20:15:12 GMT+0530 (India Standard Time)",
+      "status": "pending"
     }
   ],
   "products": [
@@ -533,7 +589,7 @@
       "description": "Let your kids show off their personality with these fun light-up sneakers. Made from durable materials, they're perfect for everyday play. The vibrant graphics are a hit!",
       "rating": 4.2,
       "price": 39.99,
-      "stock": 50,
+      "stock": "51",
       "thumbnail": "/images/4.jpg",
       "isActive": true
     },
@@ -871,7 +927,7 @@
       "price": "130",
       "stock": "15",
       "thumbnail": "/images/32.jpg",
-      "isActive": true
+      "isActive": false
     },
     {
       "id": "3318",

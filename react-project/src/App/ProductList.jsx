@@ -130,7 +130,17 @@ function Product() {
       </div>
     ) : (
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {sortedProducts.map((product) => (
+        {sortedProducts.map((product) => {
+  //         console.log(
+  //   "PRODUCT RATING:",
+  //   product.rating,
+  //   "TYPE:",
+  //   typeof product.rating,
+  //   "FULL PRODUCT:",
+  //   product
+  // );
+
+          return(
           <Link key={product.id} to={`/product/${product.id}`}>
             <div className="bg-white shadow-md rounded-xl overflow-hidden hover:shadow-xl transition duration-300">
               <img
@@ -146,7 +156,8 @@ function Product() {
                 <h3 className="text-lg font-semibold text-gray-800">
                   {product.name}
                 </h3>
-                <RatingStar rating={product.rating} size={16} />
+          
+                <RatingStar rating={Number(product.rating)} size={16} />
                 <p className="text-gray-500 mt-1">${product.price}</p>
                 <p className="text-sm text-yellow-600 capitalize mt-1">
                   {product.brand}
@@ -172,7 +183,7 @@ function Product() {
               </div>
             </div>
           </Link>
-        ))}
+         )})}
       </div>
     )}
   </section>
