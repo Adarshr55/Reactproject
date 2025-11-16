@@ -148,7 +148,7 @@
         "payment": "COD"
       },
       "createdAt": "Fri Nov 07 2025 16:45:36 GMT+0530 (India Standard Time)",
-      "status": "pending"
+      "status": "shipped"
     },
     {
       "id": "4bd0",
@@ -172,7 +172,7 @@
         "payment": "COD"
       },
       "createdAt": "Fri Nov 07 2025 17:36:32 GMT+0530 (India Standard Time)",
-      "status": "pending"
+      "status": "delivered"
     },
     {
       "id": "58fa",
@@ -196,7 +196,7 @@
         "payment": "COD"
       },
       "createdAt": "Fri Nov 07 2025 17:44:03 GMT+0530 (India Standard Time)",
-      "status": "pending"
+      "status": "shipped"
     },
     {
       "id": "6f92",
@@ -220,7 +220,7 @@
         "payment": "COD"
       },
       "createdAt": "Fri Nov 07 2025 19:45:36 GMT+0530 (India Standard Time)",
-      "status": "pending"
+      "status": "delivered"
     },
     {
       "id": "8482",
@@ -244,7 +244,7 @@
         "payment": "COD"
       },
       "createdAt": "Fri Nov 07 2025 21:27:14 GMT+0530 (India Standard Time)",
-      "status": "pending"
+      "status": "cancelled"
     },
     {
       "id": "0a3c",
