@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import OrderModal from "../Components/OrderModal";
 import OrderFilter from "../Components/OrderFilter";
 import toast from "react-hot-toast";
+import { confirmToast } from "../Components/Utilites/ConfirmToast";
 
 const STATUSES = ["pending", "shipped", "delivered", "cancelled"];
 
@@ -14,6 +15,9 @@ function AdminOrder() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filteredOrder, setFilteredOrder] = useState([]);
   const [updatingId, setUpdatingId] = useState(null);
+  const [currentPage,setCurrentPage]=useState(1)
+  const itemsPerpage=5
+
 
   // Fetch orders
   const fetchOrders = async () => {
@@ -37,6 +41,22 @@ function AdminOrder() {
   useEffect(() => {
     setFilteredOrder(orders);
   }, [orders]);
+
+  useEffect(()=>{
+    setCurrentPage(1)
+  },[filteredOrder])
+
+  const indexOfLast=currentPage* itemsPerpage
+  const indexOfFirst=indexOfLast- itemsPerpage
+  const currentOrders=filteredOrder.slice(indexOfFirst,indexOfLast)
+  const totalPages=Math.ceil(filteredOrder.length /itemsPerpage)
+
+  const nextPage=()=>{
+    if(currentPage<totalPages)setCurrentPage((p)=>p+1)
+  }
+  const prevPage=()=>{
+    if(currentPage>1)setCurrentPage((p)=>p-1)
+  }
 
   // Update Status with optimistic UI
   const updateOrderStatus = async (id, newStatus) => {
@@ -70,6 +90,30 @@ function AdminOrder() {
       setUpdatingId(null);
     }
   };
+
+  const handleDelete=(id)=>{
+    confirmToast("Are you sure you wanted to delete this order",async()=>{
+        try{
+            const prevOrders=[...orders]
+            const prevFiltered=[...filteredOrder]
+
+            setOrders((o)=>o.filter((ord)=>ord.id !==id))
+            setFilteredOrder((o)=>o.filter((ord)=>ord.id !==id))
+
+            axios.delete(`http://localhost:5000/orders/${id}`)
+            toast.success("order deleted successfully")
+        }
+        catch(err){
+            console.error("order delete failed",err)
+            toast.error("Failed to Delete order")
+            setOrders(prevOrders)
+            setFilteredOrder(prevFiltered)
+            fetchOrders()
+
+        }
+    })
+
+  }
 
   // Badge colors
   const statusBadgeClass = (status) => {
@@ -112,7 +156,7 @@ function AdminOrder() {
               </thead>
 
               <tbody className="px-4 py-3 text-left">
-                {filteredOrder.map((o) => (
+                {currentOrders.map((o) => (
                   <tr
                     key={o.id}
                     className="hover:bg-gray-50 cursor-pointer transition"
@@ -154,9 +198,18 @@ function AdminOrder() {
                           onChange={(e) =>
                             updateOrderStatus(o.id, e.target.value)
                           }
-                          disabled={updatingId === o.id}
-                          className="px-2 py-1 text-xs rounded-md border bg-white focus:ring-1 focus:ring-yellow-400"
-                        >
+                          disabled={
+                            updatingId === o.id||
+                            o.status==="delivered"||
+                            o.status==="cancelled"
+
+                           }
+                           className={`px-2 py-1 text-xs rounded-md border bg-white focus:ring-1 ${
+                                           o.status === "delivered" || o.status === "cancelled"
+                                         ? "opacity-50 cursor-not-allowed"
+                                         : "cursor-pointer focus:ring-yellow-400"
+                                        }`}
+                            >
                           {STATUSES.map((s) => (
                             <option key={s} value={s}>
                               {s}
@@ -169,13 +222,48 @@ function AdminOrder() {
                           <span className="text-xs text-gray-500">
                             Updating...
                           </span>
+                          
                         )}
+                        <button onClick={(e)=>{
+                            e.stopPropagation()
+                            handleDelete(o.id)
+                        } }
+                        className="px-3 py-1 text-xs bg-red-500 text-white rounded-md hover:bg-red-600 transition">
+                            Delete
+                        </button>
                       </div>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+          </div>
+          <div className="flex justify-center items-center gap-4 mt-5">
+            <button
+            onClick={prevPage}
+            disabled={currentPage==1}
+            className={`px-3 py-1 border rounded text-sm ${
+                currentPage === 1
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:bg-gray-100"
+              }`}
+            >
+                Previous
+            </button>
+            <span className="text-sm">
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+            onClick={nextPage}
+            disabled={currentPage===totalPages}
+            className={`px-3 py-1 border rounded text-sm ${
+                currentPage === totalPages
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:bg-gray-100"
+              }`}
+            >
+                Next   
+            </button>
           </div>
 
           <OrderModal
