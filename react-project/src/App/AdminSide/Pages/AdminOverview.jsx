@@ -164,7 +164,7 @@ setRevenueTrend(monthlyRevenueData);
 
 </div>
 
-      <h2 className="text-xl font-semibold text-gray-800 mt-8">
+      {/* <h2 className="text-xl font-semibold text-gray-800 mt-8">
   Order Status Overview
 </h2>
 
@@ -190,7 +190,7 @@ setRevenueTrend(monthlyRevenueData);
     <p className="text-2xl font-bold">{cancelledCount}</p>
   </div>
 
-</div>
+</div> */}
 
 
   {/* Monthly Summary */}

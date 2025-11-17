@@ -87,7 +87,20 @@
       "createdAt": "2025-11-15T05:20:13.410Z",
       "isActive": true,
       "isBlocked": false,
-      "wishlist": []
+      "wishlist": [
+        {
+          "id": "6",
+          "name": "Blissfeel Training Shoes",
+          "brand": "Lululemon",
+          "category": "women",
+          "description": "Experience ultimate comfort and flexibility with these high-performance training shoes. Designed for running and workouts, they offer a supportive, cushioned feel.",
+          "rating": 4.9,
+          "price": 148,
+          "stock": 40,
+          "thumbnail": "/images/6.jpg",
+          "isActive": true
+        }
+      ]
     }
   ],
   "cart": [
@@ -140,9 +153,9 @@
       "items": []
     },
     {
-      "id": "eae1",
       "userId": "55f5",
-      "items": []
+      "items": [],
+      "id": "eae1"
     }
   ],
   "orders": [
@@ -174,8 +187,8 @@
         "phone": "12345",
         "payment": "COD"
       },
-      "createdAt": "Fri oc 07 2025 16:45:36 GMT+0530 (India Standard Time)",
-      "status": "shipped"
+      "createdAt": "Fri Oct 07 2025 16:45:36 GMT+0530 (India Standard Time)",
+      "status": "delivered"
     },
     {
       "id": "4bd0",
@@ -560,6 +573,30 @@
         "payment": "COD"
       },
       "createdAt": "Sun Nov 16 2025 20:15:12 GMT+0530 (India Standard Time)",
+      "status": "pending"
+    },
+    {
+      "id": "370d",
+      "userId": "55f5",
+      "username": "nishad",
+      "items": [
+        {
+          "productId": "6",
+          "name": "Blissfeel Training Shoes",
+          "price": 148,
+          "thumbnail": "/images/6.jpg",
+          "quantity": 1
+        }
+      ],
+      "total": 148,
+      "address": {
+        "fullname": "nishad",
+        "address": "asdsf",
+        "city": "palakkad kerala",
+        "phone": "12345",
+        "payment": "COD"
+      },
+      "createdAt": "Mon Nov 17 2025 09:28:25 GMT+0530 (India Standard Time)",
       "status": "pending"
     }
   ],
