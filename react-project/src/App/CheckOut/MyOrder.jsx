@@ -82,7 +82,7 @@
                         </div>
                         <div className='flex justify-between items-center'> 
                             <span className='text-sm font-medium text-gray-800'>status:
-                                <span className={`ml-2 px-2 py-1 rounded-full text-xs${statusBadgeClass(order.status)}`}>
+                                <span className={`ml-2 px-2 py-1 rounded-full text-xs ${statusBadgeClass(order.status)}`}>
                                     {order.status}
                     </span>
                     </span>

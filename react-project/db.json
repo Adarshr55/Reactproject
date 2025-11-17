@@ -17,7 +17,7 @@
       "password": "salman@123",
       "role": "user",
       "createdAt": "2025-11-03T10:35:37.975Z",
-      "isActive": true,
+      "isActive": false,
       "isBlocked": false,
       "wishlist": []
     },
@@ -29,7 +29,7 @@
       "role": "user",
       "createdAt": "2025-11-05T17:32:58.678Z",
       "isActive": true,
-      "isBlocked": false,
+      "isBlocked": true,
       "wishlist": [
         {
           "id": "5",
@@ -113,6 +113,17 @@
           "isActive": true
         }
       ]
+    },
+    {
+      "id": "7d39",
+      "username": "aswin",
+      "email": "aswin@gmail.com",
+      "password": "123456",
+      "role": "user",
+      "createdAt": "2025-11-17T09:19:05.832Z",
+      "isActive": true,
+      "isBlocked": false,
+      "wishlist": []
     }
   ],
   "cart": [
@@ -175,6 +186,11 @@
       "userId": "55f5",
       "items": [],
       "id": "eae1"
+    },
+    {
+      "userId": "7d39",
+      "items": [],
+      "id": "ea5b"
     }
   ],
   "orders": [
@@ -327,7 +343,7 @@
         "payment": "COD"
       },
       "createdAt": "Sat Nov 08 2025 09:23:49 GMT+0530 (India Standard Time)",
-      "status": "pending"
+      "status": "delivered"
     },
     {
       "id": "b193",
@@ -389,7 +405,7 @@
         "payment": "COD"
       },
       "createdAt": "Sat Nov 08 2025 11:06:22 GMT+0530 (India Standard Time)",
-      "status": "shipped"
+      "status": "delivered"
     },
     {
       "id": "a030",
@@ -413,7 +429,7 @@
         "payment": "COD"
       },
       "createdAt": "Sat Nov 08 2025 14:54:35 GMT+0530 (India Standard Time)",
-      "status": "pending"
+      "status": "shipped"
     },
     {
       "id": "4f00",
@@ -617,6 +633,92 @@
       },
       "createdAt": "Mon Nov 17 2025 09:28:25 GMT+0530 (India Standard Time)",
       "status": "pending"
+    },
+    {
+      "id": "884c",
+      "userId": "7d39",
+      "username": "aswin",
+      "items": [
+        {
+          "productId": "5",
+          "name": "Cap-Toe Oxford Shoes",
+          "price": 398,
+          "thumbnail": "/images/5.jpg",
+          "quantity": 1
+        }
+      ],
+      "total": 398,
+      "address": {
+        "fullname": "akhail",
+        "address": "asdsf",
+        "city": "palakkad kerala",
+        "phone": "12345",
+        "payment": "COD"
+      },
+      "createdAt": "Mon Nov 17 2025 14:50:08 GMT+0530 (India Standard Time)",
+      "status": "delivered"
+    },
+    {
+      "id": "76d4",
+      "userId": "7d39",
+      "username": "aswin",
+      "items": [
+        {
+          "productId": "11",
+          "name": "Canvas Deck Shoes",
+          "price": 79.5,
+          "thumbnail": "/images/11.jpg",
+          "quantity": 1
+        },
+        {
+          "productId": "16",
+          "name": "Killshot 2 Sneakers",
+          "price": 98,
+          "thumbnail": "/images/16.jpg",
+          "quantity": 1
+        },
+        {
+          "productId": "5",
+          "name": "Cap-Toe Oxford Shoes",
+          "price": 398,
+          "thumbnail": "/images/5.jpg",
+          "quantity": 1
+        }
+      ],
+      "total": 575.5,
+      "address": {
+        "fullname": "akhail",
+        "address": "asdsf",
+        "city": "palakkad kerala",
+        "phone": "12345",
+        "payment": "COD"
+      },
+      "createdAt": "Mon Nov 17 2025 14:51:06 GMT+0530 (India Standard Time)",
+      "status": "cancelled"
+    },
+    {
+      "id": "ea86",
+      "userId": "7d39",
+      "username": "aswin",
+      "items": [
+        {
+          "productId": "10",
+          "name": "Suede Classic Sneakers",
+          "price": 55,
+          "thumbnail": "/images/10.jpg",
+          "quantity": 1
+        }
+      ],
+      "total": 55,
+      "address": {
+        "fullname": "nishad",
+        "address": "asdsf",
+        "city": "palakkad kerala",
+        "phone": "12345",
+        "payment": "COD"
+      },
+      "createdAt": "Mon Nov 17 2025 17:49:11 GMT+0530 (India Standard Time)",
+      "status": "pending"
     }
   ],
   "products": [
@@ -627,10 +729,10 @@
       "category": "men",
       "description": "A timeless classic, these loafers are crafted from genuine leather and feature a stylish, modern fit. Perfect for any occasion, offering both comfort and durability.",
       "rating": 4.5,
-      "price": 189.99,
+      "price": "189.9",
       "stock": "15",
       "thumbnail": "/images/1.jpg",
-      "isActive": true
+      "isActive": false
     },
     {
       "id": "2",
@@ -928,7 +1030,7 @@
       "description": "Protect your child's feet with these stylish and effective water sandals. They offer UPF 50+ sun protection and are made from a lightweight, quick-dry fabric. The adjustable strap ensures a secure fit.",
       "rating": 4.9,
       "price": 49.99,
-      "stock": "50",
+      "stock": "51",
       "thumbnail": "/images/26.jpg",
       "isActive": true
     },
@@ -1014,6 +1116,18 @@
       "price": "123",
       "stock": "20",
       "thumbnail": "/images/33.jpg",
+      "isActive": true
+    },
+    {
+      "id": "f2e2",
+      "name": "somthing",
+      "brand": "nike",
+      "category": "men",
+      "description": "sssdfgbhsdsdsdwdww",
+      "rating": "4",
+      "price": "200",
+      "stock": "10",
+      "thumbnail": "/images/32.jpg",
       "isActive": true
     }
   ]

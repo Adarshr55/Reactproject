@@ -43,7 +43,7 @@ export const WishlistProvider = ({ children }) => {
 
     const updatedList = [...wishlist, product];
     await updateWishlist(updatedList);
-    toast.success("Added to wishlist ❤️");
+    toast.success("Added to wishlist ");
   };
 
   const removeFromWishlist = async (id) => {

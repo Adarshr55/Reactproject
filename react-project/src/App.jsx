@@ -24,6 +24,7 @@ import AdminOverview from './App/AdminSide/Pages/AdminOverview'
 import { AdminProvider } from './App/AdminSide/Contest/AdminContest'
 import { AdminUserProvider } from './App/AdminSide/Contest/AdminUserContest'
 import WishList from './App/Wishlist/WishList'
+import OrderDetails from './App/CheckOut/OrderDetails'
 
   function App() {
     return (
@@ -42,6 +43,7 @@ import WishList from './App/Wishlist/WishList'
         <Route path='/checkout'element={<ProtectedRoute><Checkout/></ProtectedRoute>}/>
         <Route path='/order-success'element={<ProtectedRoute><OrderSuccess/></ProtectedRoute>}/>
         <Route path='/myorder'element={<ProtectedRoute><MyOrder/></ProtectedRoute>}/>
+        <Route path='/order/:id'element={<ProtectedRoute><OrderDetails/></ProtectedRoute>}/>
         <Route path='/wishlist'element={<ProtectedRoute><WishList/></ProtectedRoute>}/>
         </Route>
 
