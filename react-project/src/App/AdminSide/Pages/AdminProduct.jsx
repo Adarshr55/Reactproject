@@ -27,6 +27,8 @@ function AdminProduct() {
 //   const[search,setSearch]=useState("")
 //   const[categoryFilter,setCategoryFilter]=useState("All")
 const[filteredList,setFilteredList]=useState([])
+const[currentPage,setCurrentPage]=useState(1)
+const itemsPerpage=8
 
 
  const filteredProducts = showDeleted
@@ -105,7 +107,11 @@ const[filteredList,setFilteredList]=useState([])
     }
  }
 
- 
+ const indexOfLastItem=currentPage *itemsPerpage
+ const indexOfFirstItem=indexOfLastItem -itemsPerpage
+ const currentProducts = filteredList.slice(indexOfFirstItem, indexOfLastItem);
+const totalPages = Math.ceil(filteredList.length / itemsPerpage);
+
   return (
     <div className="bg-white p-6 rounded-xl shadow-md w-full overflow-hidden">
 
@@ -170,7 +176,7 @@ const[filteredList,setFilteredList]=useState([])
             </thead>
 
             <tbody className="divide-y divide-gray-100">
-              {filteredList.map((p) => (
+              {currentProducts.map((p) => (
                 <tr
                   key={p.id}
                   className="hover:bg-gray-50 transition-colors duration-150"
@@ -228,7 +234,53 @@ const[filteredList,setFilteredList]=useState([])
           </table>
         </div>
       )}
+      {/* Pagination Controls */}
+{totalPages > 1 && (
+  <div className="flex justify-center items-center gap-2 mt-4">
 
+    {/* Prev Button */}
+    <button
+      disabled={currentPage === 1}
+      onClick={() => setCurrentPage(prev => prev - 1)}
+      className={`px-3 py-1 rounded-md border ${
+        currentPage === 1
+          ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+          : "bg-white hover:bg-gray-100"
+      }`}
+    >
+      Prev
+    </button>
+
+    {/* Page Numbers */}
+    {[...Array(totalPages).keys()].map((number) => (
+      <button
+        key={number}
+        onClick={() => setCurrentPage(number + 1)}
+        className={`px-3 py-1 rounded-md border ${
+          currentPage === number + 1
+            ? "bg-yellow-500 text-white"
+            : "bg-white hover:bg-gray-100"
+        }`}
+      >
+        {number + 1}
+      </button>
+    ))}
+
+    {/* Next Button */}
+    <button
+      disabled={currentPage === totalPages}
+      onClick={() => setCurrentPage(prev => prev + 1)}
+      className={`px-3 py-1 rounded-md border ${
+        currentPage === totalPages
+          ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+          : "bg-white hover:bg-gray-100"
+      }`}
+    >
+      Next
+    </button>
+
+  </div>
+)}
       <AdminModal isOpen={isModalOpen}
       onClose={()=> { 
         setSelectedProduct(null)

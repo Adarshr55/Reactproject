@@ -22,6 +22,7 @@ function AdminOverview() {
     const [monthlyShipped, setMonthlyShipped] = useState(0);
      const [monthlyCancelled, setMonthlyCancelled] = useState(0);
      const[revenueTrend,setRevenueTrend]=useState([])
+     const[viewMode,setViewMode]=useState("overall")
 
 
     useEffect(()=>{
@@ -242,16 +243,39 @@ setRevenueTrend(monthlyRevenueData);
 <h2 className="text-xl font-semibold text-gray-800 mt-10">Analytics Overview</h2>
 
 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-4">
+  
 
   {/* Donut Chart */}
-  <div className="flex justify-center bg-white p-4 shadow-md rounded-xl">
-    <OrderStatusDonut
-      pending={pendingCount}
-      shipped={shippedCount}
-      delivered={deliveredCount}
-      cancelled={cancelledCount}
-    />
+  <div className="bg-white p-4 shadow-md rounded-xl">
+
+  {/* Toggle Buttons */}
+  <div className="flex justify-center gap-4 mb-4">
+    <button
+      className={`px-4 py-2 rounded-lg ${viewMode === "overall" ? "bg-blue-600 text-white" : "bg-gray-200"}`}
+      onClick={() => setViewMode("overall")}
+    >
+      Overall
+    </button>
+
+    <button
+      className={`px-4 py-2 rounded-lg ${viewMode === "monthly" ? "bg-blue-600 text-white" : "bg-gray-200"}`}
+      onClick={() => setViewMode("monthly")}
+    >
+      This Month
+    </button>
   </div>
+
+  {/* Donut Chart */}
+  <OrderStatusDonut
+    title={viewMode === "overall" ? "Overall Order Status" : "This Month Order Status"}
+    pending={viewMode === "overall" ? pendingCount : monthlyPending}
+    shipped={viewMode === "overall" ? shippedCount : monthlyShipped}
+    delivered={viewMode === "overall" ? deliveredCount : monthlyDelivered}
+    cancelled={viewMode === "overall" ? cancelledCount : monthlyCancelled}
+  />
+
+</div>
+
 
   {/* Revenue Line Chart */}
   <div className="bg-white p-5 shadow-md rounded-xl">

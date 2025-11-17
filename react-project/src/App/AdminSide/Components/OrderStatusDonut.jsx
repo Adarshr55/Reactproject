@@ -1,7 +1,7 @@
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import React from "react";
 
-function OrderStatusDonut({ pending, shipped, delivered, cancelled }) {
+function OrderStatusDonut({ pending, shipped, delivered, cancelled,title}) {
   const data = [
     { name: "Pending", value: pending },
     { name: "Shipped", value: shipped },
