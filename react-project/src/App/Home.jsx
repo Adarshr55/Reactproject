@@ -24,7 +24,7 @@ function Home() {
     relative bg-cover bg-center bg-no-repeat 
     flex flex-col justify-center items-start 
     px-6 md:px-20 text-white
-    h-[50vh] sm:h-[55vh] md:h-[60vh] lg:h-[65vh] xl:h-[70vh]
+    h-[50vh] sm:h-[55vh] md:h-[60vh] lg:h-[65vh] xl:h-[68vh]
   "
   style={{
     backgroundImage:
