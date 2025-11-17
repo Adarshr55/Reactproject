@@ -12,7 +12,7 @@ function OrderStatusDonut({ pending, shipped, delivered, cancelled, title }) {
   const COLORS = ["#FBBF24", "#3B82F6", "#22C55E", "#EF4444"];
 
   return (
-    <div className="flex flex-col items-center justify-center w-full">
+    <div className="flex flex-col items-center w-full space-y-2">
       {/* Title */}
       {title && (
         <h2 className="text-lg font-semibold text-gray-800 mb-3 text-center">
@@ -22,7 +22,7 @@ function OrderStatusDonut({ pending, shipped, delivered, cancelled, title }) {
 
       {/* Center Chart */}
       <div className="w-full flex justify-center">
-        <PieChart width={420} height={350}> 
+        <PieChart width={300} height={300}> 
           <Pie
             data={data}
             cx="50%"

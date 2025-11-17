@@ -92,7 +92,7 @@ function AdminUser() {
                             e.stopPropagation()
                              toggleBlockUser(u.id)}}
                         className={`px-3 py-1 rounded-md text-sm font-medium border transition ${
-                          u.isBlocked ? 'bg-green-100 border-green-300 text-green-700 hover:bg-green-200' : ' border-red-300 text-red-700 hover:bg-red-200'
+                          u.isBlocked ? 'bg-green-100 border-green-300 text-green-700 hover:bg-green-200' : ' border-red-300 text-red-600 hover:bg-red-200'
                         }`}
                       >
                         {u.isBlocked ? "Unblock" : "Block"}

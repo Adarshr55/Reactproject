@@ -112,7 +112,8 @@ setRevenueTrend(monthlyRevenueData);
     { title: "Total Revenue", value: `$${totalRevenue.toFixed(2)}`, icon: <DollarSign className="w-6 h-6 text-yellow-600" /> },
   ];
   return (
-    <div className="space-y-6 p-4">
+    <div className="space-y-6 p-4 overflow-y-auto max-h-[calc(100vh-90px)]">
+
       <h1 className="text-2xl font-semibold text-gray-800">Dashboard Overview</h1>
 
       {/* Stats Cards */}
@@ -242,11 +243,12 @@ setRevenueTrend(monthlyRevenueData);
 
 <h2 className="text-xl font-semibold text-gray-800 mt-10">Analytics Overview</h2>
 
-<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-4">
+<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-4 auto-rows-max">
+
   
 
-  {/* Donut Chart */}
-  <div className="bg-white p-4 shadow-md rounded-xl">
+ {/* Donut Chart Card */}
+<div className="bg-white p-6 shadow-md rounded-xl flex flex-col items-center">
 
   {/* Toggle Buttons */}
   <div className="flex justify-center gap-4 mb-4">
@@ -265,14 +267,16 @@ setRevenueTrend(monthlyRevenueData);
     </button>
   </div>
 
-  {/* Donut Chart */}
-  <OrderStatusDonut
-    title={viewMode === "overall" ? "Overall Order Status" : "This Month Order Status"}
-    pending={viewMode === "overall" ? pendingCount : monthlyPending}
-    shipped={viewMode === "overall" ? shippedCount : monthlyShipped}
-    delivered={viewMode === "overall" ? deliveredCount : monthlyDelivered}
-    cancelled={viewMode === "overall" ? cancelledCount : monthlyCancelled}
-  />
+  {/* Chart Wrapper */}
+  <div className="flex justify-center items-center">
+    <OrderStatusDonut
+      title={viewMode === "overall" ? "Overall Order Status" : "This Month Order Status"}
+      pending={viewMode === "overall" ? pendingCount : monthlyPending}
+      shipped={viewMode === "overall" ? shippedCount : monthlyShipped}
+      delivered={viewMode === "overall" ? deliveredCount : monthlyDelivered}
+      cancelled={viewMode === "overall" ? cancelledCount : monthlyCancelled}
+    />
+  </div>
 
 </div>
 

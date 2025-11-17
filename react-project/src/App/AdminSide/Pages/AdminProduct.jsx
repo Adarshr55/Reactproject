@@ -162,7 +162,7 @@ const totalPages = Math.ceil(filteredList.length / itemsPerpage);
       {!loading && filteredList.length > 0 && (
         <div className="overflow-x-auto rounded-lg border border-gray-200">
           <table className="w-full text-sm text-gray-700">
-            <thead className="bg-gray-50 text-gray-600 uppercase text-xs tracking-wider">
+            <thead className="bg-gray-100 text-gray-600 uppercase text-xs tracking-wider">
               <tr>
                 <th className="px-4 py-3 text-left font-semibold">Image</th>
                 <th className="px-4 py-3 text-left font-semibold">Name</th>

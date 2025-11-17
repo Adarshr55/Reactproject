@@ -142,9 +142,9 @@ function AdminOrder() {
         <>
           <OrderFilter orders={orders} onFilterChange={setFilteredOrder} />
 
-          <div className="overflow-x-auto border shadow-md rounded-lg">
-            <table className="w-full text-sm">
-              <thead className="bg-gray-100 text-gray-700 uppercase text-xs">
+          <div className="overflow-x-auto rounded-lg shadow-md border border-gray-200">
+            <table className="w-full text-sm border-collapse">
+              <thead className="bg-gray-100 text-gray-700 uppercase text-xs border-b border-gray-200">
                 <tr>
                   <th className="px-4 py-3 text-left">Order Id</th>
                   <th className="px-4 py-3 text-left">User</th>

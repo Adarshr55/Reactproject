@@ -42,6 +42,18 @@
           "stock": 10,
           "thumbnail": "/images/5.jpg",
           "isActive": true
+        },
+        {
+          "id": "16",
+          "name": "Killshot 2 Sneakers",
+          "brand": "J.Crew",
+          "category": "men",
+          "description": "The perfect blend of casual and smart, these iconic sneakers are a wardrobe staple. Based on an original 70s design, they feature a mix of leather and suede.",
+          "rating": 4.5,
+          "price": 98,
+          "stock": 32,
+          "thumbnail": "/images/16.jpg",
+          "isActive": true
         }
       ]
     },
@@ -112,6 +124,13 @@
           "name": "Crystal-Embellished Stilettos",
           "price": 850,
           "thumbnail": "/images/9.jpg",
+          "quantity": 1
+        },
+        {
+          "productId": "16",
+          "name": "Killshot 2 Sneakers",
+          "price": 98,
+          "thumbnail": "/images/16.jpg",
           "quantity": 1
         }
       ],
@@ -236,7 +255,7 @@
         "payment": "COD"
       },
       "createdAt": "Fri Nov 07 2025 17:44:03 GMT+0530 (India Standard Time)",
-      "status": "shipped"
+      "status": "delivered"
     },
     {
       "id": "6f92",
@@ -339,7 +358,7 @@
         "payment": "COD"
       },
       "createdAt": "Sat Nov 08 2025 10:18:14 GMT+0530 (India Standard Time)",
-      "status": "pending"
+      "status": "delivered"
     },
     {
       "id": "6051",
@@ -370,7 +389,7 @@
         "payment": "COD"
       },
       "createdAt": "Sat Nov 08 2025 11:06:22 GMT+0530 (India Standard Time)",
-      "status": "pending"
+      "status": "shipped"
     },
     {
       "id": "a030",
