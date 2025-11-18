@@ -111,6 +111,29 @@
           "stock": 40,
           "thumbnail": "/images/6.jpg",
           "isActive": true
+        },
+        {
+          "id": "2",
+          "name": "Air Zoom Pegasus",
+          "brand": "Nike",
+          "category": "sports",
+          "description": "Engineered for performance, these running shoes provide excellent cushioning and support. The lightweight design and breathable mesh upper make them ideal for long-distance runs.",
+          "rating": 4.8,
+          "price": 120,
+          "stock": 30,
+          "thumbnail": "/images/2.jpg",
+          "isActive": true,
+          "sizes": [
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"
+          ],
+          "images": [
+            "/images/img2 1.png",
+            "/images/img2.3.png"
+          ]
         }
       ]
     },
@@ -733,6 +756,30 @@
         "payment": "COD"
       },
       "createdAt": "Mon Nov 17 2025 17:49:11 GMT+0530 (India Standard Time)",
+      "status": "pending"
+    },
+    {
+      "id": "db72",
+      "userId": "55f5",
+      "username": "nishad",
+      "items": [
+        {
+          "productId": "2",
+          "name": "Air Zoom Pegasus",
+          "price": 120,
+          "thumbnail": "/images/2.jpg",
+          "quantity": 3
+        }
+      ],
+      "total": 360,
+      "address": {
+        "fullname": "adarsh",
+        "address": "asdsf",
+        "city": "palakkad kerala",
+        "phone": "12345",
+        "payment": "COD"
+      },
+      "createdAt": "Tue Nov 18 2025 23:03:51 GMT+0530 (India Standard Time)",
       "status": "pending"
     }
   ],
