@@ -53,7 +53,7 @@ function Home() {
 
       <CategoryShowcase/>
       <FeaturedProducts/>
-      <DealBanner/>
+      {/* <DealBanner/> */}
       <NewsLetterSection className="mt-12"/>
       <Footer/>
     </div>

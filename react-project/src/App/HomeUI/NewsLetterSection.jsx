@@ -18,7 +18,7 @@ function NewsLetterSection() {
    }
   return (
      <section className='bg-yellow-50 py-16 px-6 md:px-16 text-center'>
-        <h2 className='text-3xl font-bold text-gray-800 mb-3'>Stay in the<span className='text-gray-500'>Loop</span></h2>
+        <h2 className='text-3xl font-bold text-gray-800 mb-3'>Stay in the <span className='text-gray-500'>Loop</span></h2>
         <p className='text-gray-600 mb-8 text-lg max-w-lg mx-auto'>   Subscribe to get exclusive offers, early access to new collections, and style updates.  
         </p>
         {submitted?(

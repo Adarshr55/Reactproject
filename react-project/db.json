@@ -64,9 +64,79 @@
       "password": "1234567",
       "role": "user",
       "createdAt": "2025-11-08T05:34:23.652Z",
-      "isActive": false,
+      "isActive": true,
       "isBlocked": false,
-      "wishlist": []
+      "wishlist": [
+        {
+          "id": "3",
+          "name": "Floral Print Espadrilles",
+          "brand": "Zara",
+          "category": "women",
+          "description": "Embrace the summer with these beautiful floral espadrilles. Made from lightweight canvas, they feature a flattering silhouette and a vibrant print. Perfect for casual outings.",
+          "rating": 4.6,
+          "price": 69.9,
+          "stock": 25,
+          "thumbnail": "/images/3.jpg",
+          "isActive": true,
+          "sizes": [
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"
+          ],
+          "images": [
+            "/images/img3.1.png",
+            "/images/img3.2.png"
+          ]
+        },
+        {
+          "id": "4",
+          "name": "Light-Up Graphic Sneakers",
+          "brand": "Gap",
+          "category": "kids",
+          "description": "Let your kids show off their personality with these fun light-up sneakers. Made from durable materials, they're perfect for everyday play. The vibrant graphics are a hit!",
+          "rating": 4.2,
+          "price": 39.99,
+          "stock": "51",
+          "thumbnail": "/images/4.jpg",
+          "isActive": true,
+          "sizes": [
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"
+          ],
+          "images": [
+            "/images/img4.2.png",
+            "/images/img4.1.png"
+          ]
+        },
+        {
+          "id": "2",
+          "name": "Air Zoom Pegasus",
+          "brand": "Nike",
+          "category": "sports",
+          "description": "Engineered for performance, these running shoes provide excellent cushioning and support. The lightweight design and breathable mesh upper make them ideal for long-distance runs.",
+          "rating": 4.8,
+          "price": 120,
+          "stock": 30,
+          "thumbnail": "/images/2.jpg",
+          "isActive": true,
+          "sizes": [
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"
+          ],
+          "images": [
+            "/images/img2 1.png",
+            "/images/img2.3.png"
+          ]
+        }
+      ]
     },
     {
       "id": "1c97",
@@ -75,7 +145,7 @@
       "password": "123456",
       "role": "user",
       "createdAt": "2025-11-08T09:04:04.071Z",
-      "isActive": true,
+      "isActive": false,
       "isBlocked": false,
       "wishlist": []
     },
@@ -144,6 +214,17 @@
       "password": "123456",
       "role": "user",
       "createdAt": "2025-11-17T09:19:05.832Z",
+      "isActive": true,
+      "isBlocked": false,
+      "wishlist": []
+    },
+    {
+      "id": "d25a",
+      "username": "adarshr",
+      "email": "adarsh200448@gmail.com",
+      "password": "Adarsh@123",
+      "role": "user",
+      "createdAt": "2025-12-20T13:53:12.142Z",
       "isActive": true,
       "isBlocked": false,
       "wishlist": []
@@ -229,6 +310,19 @@
         }
       ],
       "id": "ea5b"
+    },
+    {
+      "userId": "d25a",
+      "items": [
+        {
+          "productId": "1",
+          "name": "Classic Leather Loafers",
+          "price": "189.9",
+          "thumbnail": "/images/1.jpg",
+          "quantity": 1
+        }
+      ],
+      "id": "4aea"
     }
   ],
   "orders": [
@@ -781,6 +875,68 @@
       },
       "createdAt": "Tue Nov 18 2025 23:03:51 GMT+0530 (India Standard Time)",
       "status": "pending"
+    },
+    {
+      "id": "ce14",
+      "userId": "c398",
+      "username": "nishad",
+      "items": [
+        {
+          "productId": "3318",
+          "name": "sport shoes",
+          "price": "123",
+          "thumbnail": "/images/33.jpg",
+          "quantity": 1
+        },
+        {
+          "productId": "5",
+          "name": "Cap-Toe Oxford Shoes",
+          "price": 398,
+          "thumbnail": "/images/5.jpg",
+          "quantity": 1
+        },
+        {
+          "productId": "11",
+          "name": "Canvas Deck Shoes",
+          "price": 79.5,
+          "thumbnail": "/images/11.jpg",
+          "quantity": 1
+        }
+      ],
+      "total": 600.5,
+      "address": {
+        "fullname": "nishad",
+        "address": "asdsf",
+        "city": "palakkad kerala",
+        "phone": "12345",
+        "payment": "COD"
+      },
+      "createdAt": "Sat Dec 20 2025 18:51:41 GMT+0530 (India Standard Time)",
+      "status": "pending"
+    },
+    {
+      "id": "62fa",
+      "userId": "d25a",
+      "username": "adarshr",
+      "items": [
+        {
+          "productId": "3",
+          "name": "Floral Print Espadrilles",
+          "price": 69.9,
+          "thumbnail": "/images/3.jpg",
+          "quantity": 1
+        }
+      ],
+      "total": 69.9,
+      "address": {
+        "fullname": "adarsh",
+        "address": "alathur palakkad",
+        "city": "palakkad kerala",
+        "phone": "123453445",
+        "payment": "COD"
+      },
+      "createdAt": "Sat Dec 20 2025 19:24:23 GMT+0530 (India Standard Time)",
+      "status": "delivered"
     }
   ],
   "products": [
@@ -794,7 +950,7 @@
       "price": "189.9",
       "stock": "15",
       "thumbnail": "/images/1.jpg",
-      "isActive": false,
+      "isActive": true,
       "sizes": [
         "6",
         "7",
@@ -814,7 +970,7 @@
       "category": "sports",
       "description": "Engineered for performance, these running shoes provide excellent cushioning and support. The lightweight design and breathable mesh upper make them ideal for long-distance runs.",
       "rating": 4.8,
-      "price": 120,
+      "price": "123",
       "stock": 30,
       "thumbnail": "/images/2.jpg",
       "isActive": true,
@@ -886,7 +1042,7 @@
       "price": 398,
       "stock": 10,
       "thumbnail": "/images/5.jpg",
-      "isActive": true,
+      "isActive": false,
       "sizes": [
         "6",
         "7",
