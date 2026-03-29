@@ -23,13 +23,13 @@ function OrderSummery({cart:propcart,total:propTotal,title=true}) {
     </h2>
     )}
     <div className='space-y-4'>
-        {cart.map((item)=>( 
+        {cart.map((item,index)=>( 
             <div
-            key={item.productId}
+            key={item.id || item.productId || index}
             className="flex items-center justify-between border-b border-gray-200 pb-3 last:border-none">
                 <div className='flex items-center gap-3'>
                     <img
-                     src={item.thumbnail}
+                     src={item.thumbnail || item.product?.thumbnail}
                      alt={item.name}
                      className='w-12 h-12 rounded-md object-cover shadow-sm'
                      onError={(e) =>
@@ -37,12 +37,12 @@ function OrderSummery({cart:propcart,total:propTotal,title=true}) {
                     "https://via.placeholder.com/60x60?text=No+Image")
                 }/>
                 <div>
-                <p className='text-gray-800 font-mediu'>{item.name}</p>
+                <p className='text-gray-800 font-mediu'>{item.name || item.product?.name}</p>
                 <p className='text-sm text-gray-500'>Qty:{item.quantity}</p>
                 </div>
                 </div>
                 <p className='text-gray-800 font-semibold'>
-                    {(item.price * item.quantity).toFixed(2)}
+                    {(Number(item.price || item.product?.price)* item.quantity).toFixed(2)}
                 </p>
                 </div>
         ))}

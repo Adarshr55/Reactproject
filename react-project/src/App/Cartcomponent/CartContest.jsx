@@ -2,138 +2,162 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 import { AuthContest } from '../../User-Auth/Authcontest'
 import axios from 'axios'
 import toast from 'react-hot-toast'
-// import { CartContext } from './CartContext'
+import API from '../../services/api'
+
 export const CartContest = createContext()
 
-export const  CartProvider=({children})=> {
-  const [loading ,setLoading]=useState(true)  
-  const {user,isloggedin}=useContext(AuthContest)
-  const [cart,setCart]=useState([])
+// ✅ axios instance with JWT token
+// const API = axios.create({ baseURL: 'http://localhost:8000/api' })
+// API.interceptors.request.use((config) => {
+//     const token = localStorage.getItem('access')
+//     if (token) config.headers.Authorization = `Bearer ${token}`
+//     return config
+// })
 
-  useEffect(()=>{
-    const loadCart= async()=>{
-        if(!isloggedin || !user){
-            const localCart = JSON.parse(localStorage.getItem("cart")) || []
-            setCart(localCart)
-            setLoading(false)
+export const CartProvider = ({ children }) => {
+    const [loading, setLoading] = useState(true)
+    const { user, isloggedin } = useContext(AuthContest)
+    const [cart, setCart] = useState([])
+
+    // load cart on login
+    useEffect(() => {
+        const loadCart = async () => {
+            if (!isloggedin || !user) {
+                // ✅ not logged in — use localStorage
+                const localCart = JSON.parse(localStorage.getItem("cart")) || []
+                setCart(localCart)
+                setLoading(false)
+                return
+            }
+            try {
+                // ✅ call Django
+                const res = await API.get('/cart/')
+                setCart(res.data.items || [])
+            } catch (err) {
+                console.error("Error loading cart", err)
+                toast.error("Error loading cart")
+            } finally {
+                setLoading(false)
+            }
+        }
+        loadCart()
+    }, [user, isloggedin])
+
+    // save to localStorage whenever cart changes
+    useEffect(() => {
+        localStorage.setItem("cart", JSON.stringify(cart))
+    }, [cart])
+
+    const addToCart = async (product, quantity = 1) => {
+        if (!isloggedin) {
+            // ✅ not logged in — local only
+            const existingItem = cart.find(item => item.productId === product.id)
+            let upCart
+            if (existingItem) {
+                upCart = cart.map(item =>
+                    item.productId === product.id
+                        ? { ...item, quantity: item.quantity + quantity }
+                        : item
+                )
+                toast.success("Quantity updated")
+            } else {
+                upCart = [...cart, {
+                    productId: product.id,
+                    name: product.name,
+                    price: product.price,
+                    thumbnail: product.thumbnail,
+                    quantity
+                }]
+                toast.success(`${product.name} added to cart`)
+            }
+            setCart(upCart)
             return
         }
-        try{
-            const res=await axios.get(`http://localhost:5000/cart?userId=${user.id}`)
-            if(res.data.length>0){
-                setCart(res.data[0].items ||[])
-            }else{
-                await axios.post(`http://localhost:5000/cart`,{
-                    userId:user.id,
-                    items:[]
-                })
-                setCart([])
 
-            }
-        }
-        catch (err){
-            console.error("error loading data",err)
-            // alert("error loading the cart from server ")
-            toast.error("error loading data")
-        }finally{
-            setLoading(false)
-        }
-    }
-    loadCart()
-  },[user,isloggedin])
-
-  useEffect(()=>{
-    localStorage.setItem("cart",JSON.stringify(cart))
-  },[cart])
-
-  const synCartDb= async (upCart)=>{
-    if(!isloggedin ||!user) return
-
-    try{
-        const res=await axios.get(`http://localhost:5000/cart?userId=${user.id}`)
-        if(res.data.length>0){
-            const cartid=res.data[0].id;
-            await axios.put(`http://localhost:5000/cart/${cartid}`,{
-                userId:user.id,
-                items:upCart
+        try {
+            // ✅ call Django
+            const res = await API.post('/cart/add/', {
+                product_id: product.id,
+                quantity,
+                selected_size: product.selectedSize || null
             })
-        }    
-    }
-    catch(err){
-        console.error("Error syncing cart",err)
-        // alert("error ")
-        toast.error("error syncing cart ")
-
-    }
-  }
-
-  const addToCart = async (product,quantity=1)=>{
-    const existingitem = cart.find((item)=>item.productId===product.id)
-    let upCart;
-    if(existingitem){
-        upCart=cart.map((item)=>
-        item.productId===product.id
-        ? {...item,quantity:item.quantity+quantity}
-        :item
-     );
-     toast.dismiss()
-     toast.success("quantity updated in the cart")
-    }else{
-        upCart=[
-            ...cart,{
-                productId:product.id,
-                name:product.name,
-                price:product.price,
-                thumbnail:product.thumbnail,
-                quantity
-
-            }
-        ]
-        toast.dismiss()
-        toast.success(`${product.name}added to cart`)
-    }
-    setCart(upCart)
-    localStorage.setItem("cart", JSON.stringify(upCart))
-    await synCartDb(upCart)
-  }
-  const updateQuntity= async (productId,quantity)=>{
-    const upCart=cart.map((item)=>item.productId ===productId ?{...item,quantity}:item
-);
-    setCart(upCart)
-    localStorage.setItem("cart", JSON.stringify(upCart))
-    await synCartDb(upCart)
-  }
-  const removeFromCart=async(productId)=>{
-    const upCart=cart.filter((item)=>item.productId !==productId);
-    setCart(upCart)
-    localStorage.setItem("cart", JSON.stringify(upCart))
-    await synCartDb(upCart)
-  }
-  const clearCart= async ()=>{
-    setCart([])
-    localStorage.removeItem("cart")
-    if(isloggedin && user){
-        try{
-            const res= await axios.get(`http://localhost:5000/cart?userId=${user.id}`)
-            if(res.data.length>0){
-                const cartid=res.data[0].id
-                await axios.put(`http://localhost:5000/cart/${cartid}`,{
-                    userId:user.id,
-                    items:[],
-                })
-            }   
-        }
-        catch(err){
-            console.error("error clearing cart",err)
+            setCart(res.data.items || [])
+            // toast.success(`${product.name} added to cart`)
+        } catch (err) {
+            console.error("Error adding to cart", err)
+            toast.error("Error adding to cart")
         }
     }
-  }
-  const totalItems= cart.reduce((acc,item)=>acc+item.quantity,0);
-  const totalPrice=cart.reduce((acc,item)=>acc+item.price *item.quantity,0)
 
-  return(
-    <CartContest.Provider value={{cart,loading,addToCart,updateQuntity,removeFromCart,clearCart,totalItems,totalPrice}} >
-        {children}
-    </CartContest.Provider>
-  )
+    const updateQuntity = async (itemId, quantity) => {
+        if (!isloggedin) {
+            const upCart = cart.map(item =>
+                item.productId === itemId ? { ...item, quantity } : item
+            )
+            setCart(upCart)
+            return
+         
+        }
+           
+            setCart(prev =>
+                prev.map(item =>
+                  item.id === itemId ? { ...item, quantity } : item
+                 )
+               )
+        try {
+            // ✅ call Django — itemId is cart item id
+            API.patch(`/cart/item/${itemId}/`, { quantity })
+        } catch (err) {
+            console.error("Error updating quantity", err)
+            toast.error("Error updating quantity")
+             const res = await API.get('/cart/')
+             setCart(res.data.items || [])
+        }
+    }
+
+    const removeFromCart = async (itemId) => {
+        if (!isloggedin) {
+            const upCart = cart.filter(item => item.productId !== itemId)
+            setCart(upCart)
+            return
+        }
+        setCart(prev => prev.filter(item => item.id !== itemId))
+        try {
+            // ✅ call Django
+            await API.delete(`/cart/item/${itemId}/`)
+             const res = await API.get('/cart/')
+             setCart(res.data.items || [])
+
+        } catch (err) {
+            console.error("Error removing from cart", err)
+            toast.error("Error removing item")
+        }
+    }
+
+    const clearCart = async () => {
+        setCart([])
+        localStorage.removeItem("cart")
+        if (!isloggedin) return
+        try {
+            // ✅ call Django
+            await API.delete('/cart/')
+        } catch (err) {
+            console.error("Error clearing cart", err)
+        }
+    }
+
+    // ✅ handle both local cart (productId) and Django cart (item.product)
+    const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0)
+    const totalPrice = cart.reduce((acc, item) =>
+        acc + Number(item.product?.price || item.price) * item.quantity, 0
+    )
+
+    return (
+        <CartContest.Provider value={{
+            cart, loading, addToCart, updateQuntity,
+            removeFromCart, clearCart, totalItems, totalPrice
+        }}>
+            {children}
+        </CartContest.Provider>
+    )
 }

@@ -29,20 +29,8 @@
       "role": "user",
       "createdAt": "2025-11-05T17:32:58.678Z",
       "isActive": true,
-      "isBlocked": true,
+      "isBlocked": false,
       "wishlist": [
-        {
-          "id": "5",
-          "name": "Cap-Toe Oxford Shoes",
-          "brand": "Hugo Boss",
-          "category": "men",
-          "description": "Make a statement with these impeccably crafted formal Oxfords. Made from premium calfskin leather, they feature a slim profile and classic cap-toe design.",
-          "rating": 4.9,
-          "price": 398,
-          "stock": 10,
-          "thumbnail": "/images/5.jpg",
-          "isActive": true
-        },
         {
           "id": "16",
           "name": "Killshot 2 Sneakers",
@@ -233,22 +221,7 @@
   "cart": [
     {
       "userId": "1aa5",
-      "items": [
-        {
-          "productId": "9",
-          "name": "Crystal-Embellished Stilettos",
-          "price": 850,
-          "thumbnail": "/images/9.jpg",
-          "quantity": 1
-        },
-        {
-          "productId": "16",
-          "name": "Killshot 2 Sneakers",
-          "price": 98,
-          "thumbnail": "/images/16.jpg",
-          "quantity": 1
-        }
-      ],
+      "items": [],
       "id": "18cd"
     },
     {
@@ -323,6 +296,16 @@
         }
       ],
       "id": "4aea"
+    },
+    {
+      "userId": 3,
+      "items": [],
+      "id": "7f79"
+    },
+    {
+      "id": "fe91",
+      "userId": 3,
+      "items": []
     }
   ],
   "orders": [
@@ -936,6 +919,44 @@
         "payment": "COD"
       },
       "createdAt": "Sat Dec 20 2025 19:24:23 GMT+0530 (India Standard Time)",
+      "status": "delivered"
+    },
+    {
+      "id": "a033",
+      "userId": "1aa5",
+      "username": "adarsh",
+      "items": [
+        {
+          "productId": "9",
+          "name": "Crystal-Embellished Stilettos",
+          "price": 850,
+          "thumbnail": "/images/9.jpg",
+          "quantity": 1
+        },
+        {
+          "productId": "16",
+          "name": "Killshot 2 Sneakers",
+          "price": 98,
+          "thumbnail": "/images/16.jpg",
+          "quantity": 2
+        },
+        {
+          "productId": "5",
+          "name": "Cap-Toe Oxford Shoes",
+          "price": 398,
+          "thumbnail": "/images/5.jpg",
+          "quantity": 2
+        }
+      ],
+      "total": 1842,
+      "address": {
+        "fullname": "nishad",
+        "address": "asdsf",
+        "city": "palakkad kerala",
+        "phone": "62354-07251",
+        "payment": "COD"
+      },
+      "createdAt": "Fri Jan 30 2026 19:47:20 GMT+0530 (India Standard Time)",
       "status": "delivered"
     }
   ],

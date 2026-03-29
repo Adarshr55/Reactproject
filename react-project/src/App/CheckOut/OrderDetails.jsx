@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AuthContest } from '../../User-Auth/Authcontest'
 import axios from 'axios'
+import API from '../../services/api' 
 import { confirmToast } from '../AdminSide/Components/Utilites/ConfirmToast'
 import toast from 'react-hot-toast'
 
@@ -24,7 +25,7 @@ function OrderDetails() {
 
     const fetchOrder = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/orders/${id}`)
+        const res =await API.get(`/orders/${id}/`)
         setOrder(res.data)
       } catch (error) {
         setError("Order not found")
@@ -40,7 +41,7 @@ function OrderDetails() {
   const cancelOrder = async () => {
     confirmToast("Are you sure you want to cancel the order?", async () => {
       try {
-        await axios.patch(`http://localhost:5000/orders/${id}`, { status: "cancelled" })
+        await API.patch(`/orders/${id}/`, { status: "cancelled" })
         toast.success("Order Cancelled Successfully")
         navigate("/myorder")
       } catch (err) {
@@ -71,7 +72,7 @@ function OrderDetails() {
       <div className="bg-white p-6 rounded-xl shadow-md space-y-4">
         <div className="flex justify-between text-sm text-gray-500">
           <span><b>Order ID:</b> {order.id}</span>
-          <span>{new Date(order.createdAt).toLocaleString()}</span>
+          <span>{new Date(order.created_at).toLocaleString()}</span>
         </div>
 {/* Order Tracking (Vertical Progress) */}
 <h2 className="font-semibold text-gray-700 mt-2">Order Tracking</h2>
@@ -126,16 +127,25 @@ function OrderDetails() {
         <h2 className="font-semibold text-gray-700 mt-4">Order Items</h2>
         <div className="space-y-2">
           {order.items.map(item => (
-            <div key={item.productId} className="flex justify-between border-b py-2 text-sm">
-              <span>{item.title} × {item.quantity}</span>
-              <span>${(item.price * item.quantity).toFixed(2)}</span>
+            <div key={item.id} className="flex justify-between border-b py-2 text-sm">
+              <span>{item.name} × {item.quantity}</span>
+              <span>${(Number(item.price) * item.quantity).toFixed(2)}</span>
             </div>
           ))}
         </div>
 
         <div className="text-right font-bold text-gray-800 text-lg pt-3">
-          Total: ${order.total.toFixed(2)}
+          Total: ${Number(order.total).toFixed(2)}
         </div>
+
+          <div className="border-t pt-4 text-sm text-gray-600 space-y-1">
+                    <h2 className="font-semibold text-gray-700 mb-2">Shipping Info</h2>
+                    <p><b>Name:</b> {order.fullname}</p>
+                    <p><b>Address:</b> {order.address}</p>
+                    <p><b>City:</b> {order.city}</p>
+                    <p><b>Phone:</b> {order.phone}</p>
+                    <p><b>Payment:</b> {order.payment}</p>
+                </div>
 
         {(order.status === "pending" || order.status==="shipped")&&(
           <button 

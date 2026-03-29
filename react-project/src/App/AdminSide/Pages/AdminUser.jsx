@@ -30,7 +30,7 @@ function AdminUser() {
     // console.log(users)
 
       const visibleUser = useMemo(() => {
-    return showDeleted ? users.filter(u => !u.isActive) : users.filter(u => u.isActive)
+    return showDeleted ? users.filter(u => !u.is_active) : users.filter(u => u.is_active)
   }, [users, showDeleted])
 
     useEffect(()=>{
@@ -82,7 +82,7 @@ function AdminUser() {
                     <td className="px-4 py-3 font-medium text-gray-900">{u.username}</td>
                     <td className="px-4 py-3 text-gray-700">{u.email}</td>
                     <td className="px-4 py-3 text-gray-700">
-                      {new Date(u.createdAt).toLocaleString()}
+                      {new Date(u.created_at).toLocaleString()}
                     </td>
 
                     <td className="px-4 py-3 text-gray-700">
@@ -92,10 +92,10 @@ function AdminUser() {
                             e.stopPropagation()
                              toggleBlockUser(u.id)}}
                         className={`px-3 py-1 rounded-md text-sm font-medium border transition ${
-                          u.isBlocked ? 'bg-green-100 border-green-300 text-green-700 hover:bg-green-200' : ' border-red-300 text-red-600 hover:bg-red-200'
+                           u.is_blocked ? 'bg-green-100 border-green-300 text-green-700 hover:bg-green-200' : ' border-red-300 text-red-600 hover:bg-red-200'
                         }`}
                       >
-                        {u.isBlocked ? "Unblock" : "Block"}
+                        {u.is_blocked? "Unblock" : "Block"}
                       </button>
 
                       {/* DELETE / RESTORE */}
@@ -104,10 +104,10 @@ function AdminUser() {
                             e.stopPropagation()
                             toggleDeleteUser(u.id)}}
                         className={`px-3 py-1 rounded-md text-sm font-medium border transition ${
-                          u.isActive ? ' border-red-300 text-red-700 hover:bg-red-200' : 'bg-green-100 border-green-300 text-green-700 hover:bg-green-200'
+                          u.is_active ? ' border-red-300 text-red-700 hover:bg-red-200' : 'bg-green-100 border-green-300 text-green-700 hover:bg-green-200'
                         }`}
                       >
-                        {u.isActive ? "Delete" : "Restore"}
+                        {u.is_active ? "Delete" : "Restore"}
                       </button>
                     </td>
                   </tr>

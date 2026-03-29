@@ -37,25 +37,25 @@ function UserDetailModal({ isOpen, onClose, user }) {
           <div>
             <p className="text-xs font-semibold text-gray-500">Created At</p>
             <p className="border p-2 rounded-md mt-1 bg-gray-50">
-              {new Date(user.createdAt).toLocaleString()}
+              {new Date(user.created_at).toLocaleString()}
             </p>
           </div>
 
           <div>
             <p className="text-xs font-semibold text-gray-500">Status</p>
             <p className={`border p-2 rounded-md mt-1 font-medium ${
-              user.isActive ? "text-green-700 bg-green-50" : "text-red-700 bg-red-50"
+              user.is_active ? "text-green-700 bg-green-50" : "text-red-700 bg-red-50"
             }`}>
-              {user.isActive ? "Active" : "Deleted"}
+              {user.is_active ? "Active" : "Deleted"}
             </p>
           </div>
 
           <div>
             <p className="text-xs font-semibold text-gray-500">Block Status</p>
             <p className={`border p-2 rounded-md mt-1 font-medium ${
-              user.isBlocked ? "text-red-700 bg-red-50" : "text-green-700 bg-green-50"
+              user.is_blocked ? "text-red-700 bg-red-50" : "text-green-700 bg-green-50"
             }`}>
-              {user.isBlocked ? "Blocked" : "Not Blocked"}
+              {user.is_blocked ? "Blocked" : "Not Blocked"}
             </p>
           </div>
 

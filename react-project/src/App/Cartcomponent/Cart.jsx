@@ -35,22 +35,22 @@ function Cart() {
       <h1  className='text-gray-900 text-3xl font-bold text-center'> Your shopping cart</h1>
       <div className='bg-white shadow-lg rounded-2xl p-6 md:p-10 space-y-6'>
         {cart.map((items)=>(
-          <div key={items.productId} 
+          <div key={items.id} 
            className="flex flex-col sm:flex-row justify-between items-center border-b border-gray-200 pb-6 mb-6 last:border-none last:mb-0">
             <div className='flex items-center gap-6 w-full sm:w-auto'>
               <img
-               src={items.thumbnail}
+               src={items.product?.thumbnail}
                alt={items.name}
                className='w-20 h-20 object-cover rounded-xl shadow-sm'
                onError={(e)=>(e.target.src= 'https://via.placeholder.com/100x100?text=Image+Unavailable')}/>
                <div >
-                <h3 className='text-gray-800 text-lg font-semibold'>{items.name}</h3>
-                <p className='text-yellow-600 font-medium'>{items.price}</p>
+                <h3 className='text-gray-800 text-lg font-semibold'>{items.product?.name}</h3>
+                <p className='text-yellow-600 font-medium'>{items.product?.price}</p>
                </div>
             </div>
             <div className='flex items-center gap-4 mt-4 sm:mt-0'>
-              <QuantitySelector quantity={items.quantity}setQuantity={(newQty)=>updateQuntity(items.productId,newQty)} stock={ items.stock ||10}/>
-                <button onClick={()=>removeFromCart(items.productId)} className="text-red-500 hover:text-red-600 transition">
+              <QuantitySelector quantity={items.quantity}setQuantity={(newQty)=>updateQuntity(items.id,newQty)} stock={ items.product?.stock ||10}/>
+                <button onClick={()=>removeFromCart(items.id)} className="text-red-500 hover:text-red-600 transition">
                   <Trash2 className='h-6 w-6'/>
                 </button>
             </div>

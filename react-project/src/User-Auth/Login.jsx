@@ -9,15 +9,7 @@ import { Eye, EyeOff } from 'lucide-react'
 
    const validationSchema =Yup.object({
     userinput:Yup.string()
-    .required("username or  email required")
-    .test('is-email-or-username','enter a valid email or username',(value)=>{
-        if(!value)return false
-        if(value.includes('@')){
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-
-        }
-        return /^[a-zA-Z0-9_]{3,}$/.test(value);
-    }),
+    .required("email required"),
     password:Yup.string()
     .required("password is required")
     .min(6,"password must be at least 6 characters")
@@ -25,8 +17,6 @@ import { Eye, EyeOff } from 'lucide-react'
    })
 
 function Login() {
-    // const [userinput,setuserinput]=useState("")
-    // const[password,setPassword]=useState("")
     const {login,isloggedin}=useContext(AuthContest)   
     const navigate=useNavigate()
     const[showPassword,setShowPassword]=useState(false)
@@ -48,73 +38,29 @@ function Login() {
         initialValues:{userinput:"",password:""},
         validationSchema,
         onSubmit:async (values,{setSubmitting})=>{
-            // try{
-            //     const res=await axios.get("http://localhost:5000/users")
-            //     const users=res.data
-            //     const validuser=users.find(
-            //         (u)=>(u.username=== values.userinput.trim()||
-            //         u.email=== values.userinput.trim()) &&
-            //         u.password=== values.password);
-
-             try {
-        const userInput = values.userinput.trim();
-        const password = values.password;
-
-        //  Fetch admins
-        const adminRes = await axios.get("http://localhost:5000/admins");
-        const admins = adminRes.data;
-
-        // Check admin login
-        const admin = admins.find(
-            (a) =>
-                (a.username === userInput || a.email === userInput) &&
-                a.password === password
-        );
-            if (admin) {
-            login(admin);
-            toast.success("Admin login successful!");
-            navigate("/admin");
-            return;
-        }
-
-        //  Fetch regular users if not admin
-        const userRes = await axios.get("http://localhost:5000/users");
-        const users = userRes.data;
-
-        const validuser = users.find(
-            (u) =>u.isActive &&
-                (u.username === userInput || u.email === userInput) &&
-                u.password === password
-        );
-                
-            
-        if(validuser){
-
-            if(validuser.isBlocked){
-                toast.error("Your account is blocked.contact support")
-                setSubmitting(false)
-                return
-            }
-            if(!validuser.isActive){
-                toast.error("This account is deleted.please register again.")
-                setSubmitting(false)
-                return
-            }
-            login(validuser)
-            // alert("login successsfull") 
-            toast.success("Login successfull")
-        navigate(validuser.role==="admin"?"/admin":"/")
-        console.log("logged IN USER",validuser)
-        }
-        else{
-            // alert("invalid credentails")
-            toast.error("invalid credentails")
-        }
+            try {
+                 const res=await axios.post("http://localhost:8000/api/auth/login/",{
+                    email:values.userinput.trim(),
+                    password:values.password
+                    })
+                login(res.data) 
+                toast.success("login Successfull!")
+                if (res.data.user.is_admin){
+                    navigate('/admin')
+                }else {
+                    navigate('/')
+                }
     }
     catch(error){
         console.error("error during login",error)
+        const errors=error.response?.data
+        if (errors?.error){
+            toast.error(errors.error)
+        }else{
+
+            toast.error("Login failed")
+        }
         // alert("Login failed")
-        toast.error("Login failed")
     }finally{
         setSubmitting(false)
     }

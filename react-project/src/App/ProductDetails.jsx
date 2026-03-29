@@ -27,11 +27,11 @@ function ProductDetails() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/products/${id}`)
-        if (res.data.isActive === false) setError("This product is no longer available")
+        const res = await axios.get(`http://localhost:8000/api/products/${id}/`)
+        if (res.data.is_active === false) setError("This product is no longer available")
         else {
           setProduct(res.data)
-          setActiveImage(res.data.thumbnail || res.data.images?.[0])
+          setActiveImage(res.data.thumbnail || res.data.images?.[0]?.image)
         }
       } catch (err) {
         setError("Product not found")
@@ -83,15 +83,17 @@ function ProductDetails() {
 
           {product.images?.length > 0 && (
             <div className="flex gap-2 mt-4 flex-wrap">
-              {[product.thumbnail, ...product.images].map((img, idx) => (
-                <img
-                  key={idx}
-                  src={img}
-                  onClick={() => setActiveImage(img)}
-                  className={`w-16 h-16 object-cover rounded cursor-pointer border
-                    ${activeImage === img ? "border-yellow-500" : "border-transparent"}`}
-                />
-              ))}
+              {[product.thumbnail, ...product.images.map(i => i.image)]
+                .filter(Boolean)
+                .map((img, idx) => (
+                  <img
+                    key={idx}
+                    src={img}
+                    onClick={() => setActiveImage(img)}
+                    className={`w-16 h-16 object-cover rounded cursor-pointer border
+                      ${activeImage === img ? "border-yellow-500" : "border-transparent"}`}
+                  />
+                ))}
             </div>
           )}
         </div>
@@ -102,23 +104,23 @@ function ProductDetails() {
           <p className="text-xl text-yellow-600 font-semibold">${product.price}</p>
           <RatingStar rating={product.rating} size={22} />
           <p className="text-gray-600 text-sm capitalize">Brand: {product.brand}</p>
-          <p className="text-gray-600 text-sm capitalize">Category: {product.category}</p>
+          <p className="text-gray-600 text-sm capitalize">Category: {product.category?.name}</p>
 
           {/* SIZE SELECTOR */}
-          {product.sizes && (
+          {product.sizes?.length>0 && (
             <div>
               <h3 className="font-semibold text-sm text-gray-700 mb-2">Select Size</h3>
               <div className="flex gap-3 flex-wrap">
-                {product.sizes.map(size => (
+                {product.sizes.map(s => (
                   <button
-                    key={size}
-                    onClick={() => setSelectedSize(size)}
+                    key={s.id}
+                    onClick={() => setSelectedSize(s.size)}
                     className={`px-4 py-1 text-sm rounded-md border
-                      ${selectedSize === size
+                      ${selectedSize ===s.size
                         ? "bg-yellow-500 text-white border-yellow-600"
                         : "bg-white text-gray-700 border-gray-300 hover:border-yellow-500"}`}
                   >
-                    {size}
+                    {s.size}
                   </button>
                 ))}
               </div>

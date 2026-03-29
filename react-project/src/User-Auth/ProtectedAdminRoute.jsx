@@ -6,7 +6,7 @@ function ProtectedAdminRoute({children}) {
     const {user,isloggedin}=useContext(AuthContest)
 
     if(!isloggedin)return <Navigate to="/login"replace/>
-    if(user.role !=="admin")return <Navigate to="/"replace/>
+    if(!user?.is_admin)return <Navigate to="/"replace/>
 
     return children
 

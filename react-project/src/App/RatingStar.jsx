@@ -10,7 +10,7 @@ function RatingStar({rating,size=5}) {
                 className={`${i<Math.round(rating)?"text-yellow-400 fill-yellow-400":"text-gray-300"
                 }`}  style={{width:size,height:size}} />
             ))}
-            <span className='ml-2 text-gray-600 text-sm'>{rating.toFixed(1)}</span>
+            <span className='ml-2 text-gray-600 text-sm'>{Number(rating).toFixed(1)}</span>
 
           </div>
   )

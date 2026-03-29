@@ -12,28 +12,9 @@ function CategoryShowcase() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/products");
-        const allProducts = res.data;
-
-        // Get unique categories
-        const uniqueCategories = [
-          ...new Set(allProducts.map((item) => item.category)),
-        ];
-
-        // Create sample category cards (you could also use real category images)
-        const categoryCards = uniqueCategories.map((cat) => {
-          const sampleProduct = allProducts.find(
-            (p) => p.category === cat && p.thumbnail
-          );
-          return {
-            name: cat,
-            image:
-              sampleProduct?.thumbnail ||
-              "https://via.placeholder.com/300x300?text=Category",
-          };
-        });
-
-        setCategories(categoryCards);
+        const res = await axios.get("http://localhost:8000/api/categories/");
+         setCategories(res.data)
+        
       } catch (error) {
         console.error("Error fetching categories:", error);
         toast.error("Failed to load categories");
@@ -70,12 +51,12 @@ function CategoryShowcase() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {categories.map((cat) => (
           <div
-            key={cat.name}
+            key={cat.id}
             onClick={() => navigate(`/products/${cat.name}`)}
             className="cursor-pointer bg-gray-50 shadow-md rounded-2xl overflow-hidden hover:shadow-lg hover:scale-105 transition duration-300"
           >
             <img
-              src={cat.image}
+              src={cat.image ||"https://via.placeholder.com/300x300?text=Category"}
               alt={cat.name}
               className="w-full h-56 object-cover"
               onError={(e) =>

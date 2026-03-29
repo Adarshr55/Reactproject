@@ -74,7 +74,8 @@ const itemsPerpage=8
     const newErrors={}
     if(!editedProduct.name?.trim())newErrors.name="Product name required"
     if(!editedProduct.brand?.trim())newErrors.brand="Brand is required"
-    if(!editedProduct.category?.trim())newErrors.category="category is required"
+  const categoryValue = editedProduct.category?.name || editedProduct.category || ''
+  if (!categoryValue.trim()) newErrors.category = "Category is required"
     if(!editedProduct.price ||editedProduct.price<=0)newErrors.price="Price must be greater than 0"
     setErrors(newErrors)
     return Object.keys(newErrors).length===0
@@ -88,10 +89,10 @@ const itemsPerpage=8
     try {
         if(selectedProduct){
          await updateProducts(editedProduct.id,editedProduct)
-          toast.success("Product edited Successfully")
+          // toast.success("Product edited Successfully")
         }else{
           await addProducts({...editedProduct,isActive:true})
-          toast.success("product is added successfully")
+          // toast.success("product is added successfully")
         }
         fetchAllProducts()
         setisModalOpen(false)
@@ -124,7 +125,8 @@ const totalPages = Math.ceil(filteredList.length / itemsPerpage);
 
             <button onClick={()=>{
                 setSelectedProduct(null)
-                setEditedProduct({name:"",brand:"",category:"" ,description:"",rating:"",price:"",stock:"", thumbnail:"",isActive:""})
+                setEditedProduct({name:"",brand:"",category:"" ,description:"",rating:"",price:"",stock:"", thumbnail:"",isActive:"",thumbnailFile: null,previewUrl: null })
+                 setErrors({}) 
                 setisModalOpen(true)
 
             }}  
@@ -192,7 +194,7 @@ const totalPages = Math.ceil(filteredList.length / itemsPerpage);
                     {p.name}
                   </td>
                   <td className="px-4 py-3">{p.brand}</td>
-                  <td className="px-4 py-3 capitalize">{p.category}</td>
+                  <td className="px-4 py-3 capitalize">{p.category?.name}</td>
                   <td className="px-4 py-3 text-center">${p.price}</td>
                   <td className="px-4 py-3 text-center">{p.stock}</td>
                   <td className="px-4 py-3 text-center">{p.rating}</td>
@@ -204,6 +206,7 @@ const totalPages = Math.ceil(filteredList.length / itemsPerpage);
                         <button onClick={()=>{
                             setSelectedProduct(p)
                             setEditedProduct({...p})
+                            setErrors({})
                             setisModalOpen(true)
                         }}
                             className="flex items-center gap-1 px-3 py-1 border border-blue-300 text-blue-600 rounded-md hover:bg-blue-50 transition">
@@ -293,7 +296,11 @@ const totalPages = Math.ceil(filteredList.length / itemsPerpage);
             <div className="space-y-3 text-sm">
                 <div className="flex flex-col items-center gap-2">
                     <img
-                      src={editedProduct.thumbnail ||"/images/no-images.png"}
+                       src={
+                        editedProduct.previewUrl ||         // new file picked → show blob preview
+                        editedProduct.thumbnail ||           // existing product → show Django URL
+                          "/images/no-image.png"              // fallback
+                         }
                       alt={editedProduct.name} 
                       className="w-28 h-28 object-cover rounded-md border"
                       onError={(e)=>{
@@ -309,18 +316,42 @@ const totalPages = Math.ceil(filteredList.length / itemsPerpage);
                         Change Image(URL)
                     </label>
                     <input
-                     type="text"
-                     value={editedProduct.thumbnail}
-                     onChange={(e)=>
-                        setEditedProduct({...editedProduct,thumbnail:e.target.value})
-                     }
-                     className="w-full border border-gray-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-1   focus:ring-yellow-400"/>   
+                     type="file"
+                     accept="image/*"
+                     id="thumbnail-upload"
+                     className='hidden'
+                    //  value={editedProduct.thumbnail}
+                     onChange={(e) => {
+            const file = e.target.files[0]
+            if (!file) return
+            const previewUrl = URL.createObjectURL(file)  // ✅ instant local preview
+            setEditedProduct({
+                ...editedProduct,
+                thumbnailFile: file,       // actual File object → sent to Django
+                previewUrl: previewUrl     // blob URL → shown in <img>
+                })
+               }}
+               />
+                <label
+              htmlFor="thumbnail-upload"
+                   className="cursor-pointer px-3 py-1.5 text-xs bg-gray-100 border border-gray-300 
+                   rounded-md hover:bg-gray-200 transition text-gray-700"
+                 >
+              {editedProduct.thumbnailFile ? "Change Image" : "Upload Image"}
+            </label>
+
+          {/* Show selected filename */}
+              {editedProduct.thumbnailFile && (
+             <p className="text-xs text-gray-500 truncate max-w-[200px]">
+               {editedProduct.thumbnailFile.name}
+              </p>
+                )}
                 </div>
 
                  {[
               { label: "Product Name", key: "name" },
               { label: "Brand", key: "brand" },
-              { label: "Category", key: "category" },
+              // { label: "Category", key: "category" },
               { label: "Price ($)", key: "price", type: "number" },
               { label: "Stock", key: "stock", type: "number" },
               { label: "Rating (0–5)", key: "rating", type: "number" }
@@ -349,13 +380,31 @@ const totalPages = Math.ceil(filteredList.length / itemsPerpage);
                 )}
               </div>
             ))}
+            <div>
+            <label className="block text-xs font-medium text-gray-700">Category</label>
+           <input
+            type="text"
+             value={editedProduct.category?.name || editedProduct.category || ''}
+             onChange={(e) =>
+                 setEditedProduct({ ...editedProduct, category: e.target.value })
+               }
+                 className={`w-full border rounded-md px-2 py-[3px] text-sm focus:outline-none focus:ring-1 ${
+               errors.category
+                  ? 'border-red-400 focus:ring-red-400'
+                      : 'border-gray-300 focus:ring-yellow-400'
+                     }`}
+                   />
+              {errors.category && (
+           <p className="text-red-500 text-xs mt-1">{errors.category}</p>
+           )}
+            </div>
 
             <div>
               <label className="block text-xs font-medium text-gray-700">
                 Description
               </label>
               <textarea
-                value={editedProduct.description}
+                value={editedProduct.description || ""}
                 onChange={(e) =>
                   setEditedProduct({
                     ...editedProduct,

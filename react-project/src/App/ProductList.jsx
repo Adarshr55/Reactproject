@@ -27,13 +27,10 @@ function Product() {
     const fetchProducts = async () => {
       try {
         setLoading(true)
-        const res = await axios.get("http://localhost:5000/products")
-
-        let data = res.data.filter((item) => item.isActive !== false)
-        if (category) {
-          data = data.filter((items) => items.category.toLowerCase() === category.toLowerCase())
-        }
-        setProducts(data)
+        let url="http://localhost:8000/api/products/"
+        if (category) url +=`?category=${category}`
+        const res=await axios.get(url)
+        setProducts(res.data)
       } catch (err) {
         console.error("Error fetching the products:", err)
         setError("Failed to load products")
@@ -51,7 +48,7 @@ function Product() {
     return (
       items.name.toLowerCase().includes(q) ||
       items.brand.toLowerCase().includes(q) ||
-      items.category.toLowerCase().includes(q)
+      items.category?.name.toLowerCase().includes(q)
     )
   })
 
@@ -150,7 +147,7 @@ function Product() {
                   <RatingStar rating={Number(product.rating)} size={16} />
                   <p className="text-gray-500 mt-1">${product.price}</p>
                   <p className="text-sm text-yellow-600 capitalize mt-1">{product.brand}</p>
-                  <p className="text-sm text-yellow-500 capitalize mt-1">{product.category}</p>
+                  <p className="text-sm text-yellow-500 capitalize mt-1">{product.category?.name}</p>
 
                   <button
                     onClick={(e) => {

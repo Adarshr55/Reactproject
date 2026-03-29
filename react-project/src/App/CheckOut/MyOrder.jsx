@@ -2,6 +2,7 @@
     import { AuthContest } from '../../User-Auth/Authcontest'
     import { useNavigate } from 'react-router-dom'
     import axios from 'axios'
+    import API from '../../services/api' 
     import OrderSummery from './OrderSummery'
 
     function MyOrder() {
@@ -18,7 +19,7 @@
             }
             const fetchOrder =async ()=>{
                 try{
-                    const res=await axios.get(`http://localhost:5000/orders?userId=${user.id}`)
+                    const res=await API.get('/orders/')
                     setOrder(res.data)
                 }
                 catch (err){
@@ -78,7 +79,7 @@
                     <div key={order.id} className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition space-y-4">
                         <div className="flex justify-between text-sm text-gray-500">
                             <span>Order ID:{order.id}</span>
-                            <span>{new Date(order.createdAt).toLocaleString()}</span>
+                            <span>{new Date(order.created_at).toLocaleString()}</span>
                         </div>
                         <div className='flex justify-between items-center'> 
                             <span className='text-sm font-medium text-gray-800'>status:
@@ -87,10 +88,10 @@
                     </span>
                     </span>
                     <span className='font-semibold text-gray-800'>
-                        {order.total.toFixed(2)}
+                         ${Number(order.total).toFixed(2)}
                         </span>
                         </div>
-                        <OrderSummery cart={order.items} total={order.total} title={false}/>
+                        <OrderSummery cart={order.items} total={Number(order.total)} title={false}/>
                         <div className='text-right'>
                             <button onClick={()=>navigate(`/order/${order.id}`)} className='mt-3 text-sm font-medium text-yellow-600 hover:underline'> View Details</button>
                     </div>

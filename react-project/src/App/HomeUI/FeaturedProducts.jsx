@@ -13,10 +13,10 @@ function FeaturedProducts() {
   useEffect(() => {
     const fetchFeaturedProducts = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/products");
+        const res = await axios.get("http://localhost:8000/api/products/");
 
         // 🔥 Sort products by rating or popularity (top-rated first)
-        const sorted = res.data.sort((a, b) => b.rating - a.rating);
+        const sorted = res.data.sort((a, b) =>Number( b.rating) - Number (a.rating));
 
         // 🎯 Take only the top 4
         setProducts(sorted.slice(0, 4));

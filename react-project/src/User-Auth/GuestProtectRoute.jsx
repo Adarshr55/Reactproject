@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom'
 function GuestProtectRoute({children}) {
     const {isloggedin,user}=useContext(AuthContest)
     if(isloggedin){
-        if(user?.role==="admin")return <Navigate to="/admin" replace/>
+        if(user?.is_admin)return <Navigate to="/admin" replace/>
         return <Navigate to="/" replace/>
     }
     return children

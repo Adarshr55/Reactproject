@@ -26,13 +26,6 @@ const validationSchema = Yup.object({
 });
 
 function Register() {
-//   const navigate = useNavigate();
-//   const {isloggedin}=useContext(AuthContest)
-//   useEffect(()=>{
-//     if(isloggedin){
-//         navigate("/")
-//     }
-//   },[isloggedin,navigate])
 const navigate=useNavigate()
 
   const formik = useFormik({
@@ -45,49 +38,34 @@ const navigate=useNavigate()
     validationSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       try {
-        const res = await axios.get("http://localhost:5000/users");
-        const users = res.data;
+        await axios.post("http://localhost:8000/api/auth/register/",{
+            username: values.username.trim(),
+            email: values.email.trim(),
+            password: values.password,
+            confirmpassword: values.confirmPassword
+        });
 
-        const userExists = users.find(
-          (u) =>
-            u.username.toLowerCase() === values.username.toLowerCase().trim() ||
-            u.email.toLowerCase() === values.email.toLowerCase().trim()
-            &&
-            u.isActive===true
-        );
-
-        if(userExists && userExists.isActive===true){
-            toast.error("username or email already exists")
-        }
-
-        if (userExists && userExists.isBlocked===true) {
-          toast.error("This Account is blocked you cannot register again");
-          return;
-        }
-
-        const newUser = {
-          username: values.username.trim(),
-          email: values.email.trim(),
-          password: values.password,
-          role: "user",
-          createdAt: new Date().toISOString(),
-          isActive:true,
-          isBlocked:false,
-          wishlist:[]
-        };
-
-        await axios.post("http://localhost:5000/users", newUser);
         toast.success("Registration successful!");
         resetForm();
         navigate("/login");
+
       } catch (error) {
-        console.error("Error during registration", error);
-        toast.error("Something went wrong. Please try again!");
-      } finally {
+        const errors=error.response?.data
+          if (errors){
+             if (errors.email)toast.error(errors.email[0])
+             else if (errors.username)toast.error(errors.username[0])
+             else if(errors.password)toast.error(errors.password[0])
+             else if(errors.confirmPassword)toast.error(errors.confirmPassword[0])
+             toast.error("Something went wrong. Please try again!");
+              
+            }else {
+               toast.error("Something went wrong. Please try again!")
+            }
+      }   finally {
         setSubmitting(false);
       }
-    },
-  });
+    }
+  })
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">

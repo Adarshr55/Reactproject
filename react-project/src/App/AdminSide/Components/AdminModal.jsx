@@ -30,9 +30,9 @@ function AdminModal({ isOpen, onClose, title, children }) {
 
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-      <div className="bg-white w-[90%] sm:w-[70%] md:w-[45%] lg:w-[35%] rounded-lg shadow-xl relative p-5">
+      <div className="bg-white w-[90%] sm:w-[70%] md:w-[45%] lg:w-[35%] rounded-lg shadow-xl relative p-5 max-h-[90vh] flex flex-col">
         {/* Header */}
-        <div className="flex justify-between items-center border-b border-gray-200 pb-2 mb-4">
+        <div className="flex justify-between items-center border-b border-gray-200 pb-2 mb-4 flex-shrink-0">
           <h2 className="text-base md:text-lg font-semibold text-gray-800">{title}</h2>
           <button
             onClick={onClose}
@@ -43,7 +43,7 @@ function AdminModal({ isOpen, onClose, title, children }) {
         </div>
 
         {/* Body */}
-        <div className="px-1 text-sm text-gray-700 space-y-3">{children}</div>
+        <div className="px-1 text-sm text-gray-700 space-y-3 overflow-y-auto flex-1">{children}</div>
       </div>
     </div>
   );

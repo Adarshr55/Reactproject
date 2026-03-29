@@ -6,8 +6,9 @@ function ProductFilter({products,onFilterchange}) {
 
     const categories=[
         "All",
-        ...new Set(products.map((p)=>p.category?.trim()||"Uncategorized"))
+        ...new Set(products.map((p)=>p.category?.name?.trim()||"Uncategorized"))
     ]
+      const productsKey = products.map((p) => p.id).join(',')
 
     useEffect(()=>{
         const filtered=products.filter((p)=>{
@@ -16,11 +17,11 @@ function ProductFilter({products,onFilterchange}) {
             p.brand.toLowerCase().includes(searchTerm.toLowerCase());
 
             const matchesCategory=
-            category==="All"||p.category===category;
+            category==="All"||p.category?.name===category;
             return matchesSearch && matchesCategory
         })
         onFilterchange(filtered)
-    },[searchTerm,category])
+    },[searchTerm,category,productsKey])
 
   return (
     <div className='flex flex-col sm:flex-row gap-3 mb-5'>

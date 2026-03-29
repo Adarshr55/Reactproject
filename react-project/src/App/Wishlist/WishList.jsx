@@ -31,10 +31,10 @@ function WishList() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {wishlist.map((item) => (
           <div key={item.id} className="bg-white rounded-xl shadow-md p-4 flex flex-col">
-            <Link to={`/product/${item.id}`}>
+            <Link to={`/product/${item.product.id}`}>
               <img
-                src={item.thumbnail}
-                alt={item.name}
+                src={item.product.thumbnail}
+                alt={item.product.name}
                 className="h-48 w-full object-cover rounded-md"
                 onError={(e) =>
                   (e.target.src =
@@ -43,12 +43,12 @@ function WishList() {
               />
             </Link>
 
-            <h3 className="mt-3 text-lg font-semibold">{item.name}</h3>
-            <p className="text-gray-600 mb-2">${item.price}</p>
+            <h3 className="mt-3 text-lg font-semibold">{item.product.name}</h3>
+            <p className="text-gray-600 mb-2">${item.product.price}</p>
 
             <div className="mt-auto flex gap-2">
               <button
-                onClick={() => removeFromWishlist(item.id)}
+                onClick={() => removeFromWishlist(item.product.id)}
                 className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 rounded-md"
               >
                 Remove
@@ -60,7 +60,8 @@ function WishList() {
                     toast.error("Please login first");
                     return;
                   }
-                  addToCart(item);
+                  addToCart(item.product);
+                  removeFromWishlist(item.product.id)
                   toast.success("Moved to Cart");
                 }}
                 className="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 rounded-md"
