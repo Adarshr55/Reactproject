@@ -16,7 +16,7 @@ export const AdminUserProvider = ({ children }) => {
       setLoadingUsers(true);
 
       const res = await API.get('/admin/users/')
-      setUsers(res.data);
+      setUsers(res.data.results);
       setErrorUsers(null);
     } catch (err) {
       console.error("Error fetching users", err);

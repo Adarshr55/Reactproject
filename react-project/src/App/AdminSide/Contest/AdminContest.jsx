@@ -11,6 +11,8 @@ export const AdminProvider=({children})=>{
     const[orders, setOrders]=useState([])
     const[loading,setLoading]=useState(false)
     const[error,setError]=useState(null)
+    const [totalPages, setTotalPages] = useState(1)
+    const [currentPage, setCurrentPage] = useState(1)
 
       const mapProduct = (p) => ({
     ...p,
@@ -19,11 +21,25 @@ export const AdminProvider=({children})=>{
     category: p.category,            
   })
 
-    const fetchAllProducts= async()=>{
+    const fetchAllProducts= async(
+       page = 1,
+       search = '',
+       category = '',
+       isActive = true
+    )=>{
         try{
             setLoading(true)
-            const res=await API .get('/admin/products/')
-            setProducts(res.data.map(mapProduct))
+            const params = new URLSearchParams({
+            page,
+            page_size: 8,
+           is_active: isActive ? 'true' : 'false',
+           ...(search && { search }),
+           ...(category && category !== 'All' && { category }),
+            })
+            const res=await API .get(`/admin/products/?${params}`)
+            setProducts(res.data.results.map(mapProduct))
+            setTotalPages(res.data.total_pages)
+            setCurrentPage(res.data.page)
             setError(null)
         }catch(err){
             console.error("Error fetching Products",err)
@@ -145,7 +161,9 @@ export const AdminProvider=({children})=>{
         loading,
         error,
         fetchAllProducts,
-        addProducts,updateProducts,deleteProducts,restoreProduct
+        addProducts,updateProducts,deleteProducts,restoreProduct,
+        totalPages,
+        currentPage
         }}>
             {children}
 

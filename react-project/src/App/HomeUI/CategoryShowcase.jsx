@@ -56,12 +56,12 @@ function CategoryShowcase() {
             className="cursor-pointer bg-gray-50 shadow-md rounded-2xl overflow-hidden hover:shadow-lg hover:scale-105 transition duration-300"
           >
             <img
-              src={cat.image ||"https://via.placeholder.com/300x300?text=Category"}
+              src={cat.image ||"https://placehold.co/300x300?text=Category"}
               alt={cat.name}
               className="w-full h-56 object-cover"
               onError={(e) =>
                 (e.target.src =
-                  "https://via.placeholder.com/300x300?text=No+Image")
+                  "https://placehold.co/300x300?text=No+Image")
               }
             />
             <div className="p-4 bg-white">

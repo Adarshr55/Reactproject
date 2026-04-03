@@ -15,7 +15,9 @@ function AdminProduct() {
     deleteProducts,
     restoreProduct,
     updateProducts,
-    addProducts
+    addProducts,
+    totalPages, 
+    currentPage,
   } = useContext(AdminContext);
 
   const [showDeleted, setShowDeleted] = useState(false);
@@ -27,7 +29,7 @@ function AdminProduct() {
 //   const[search,setSearch]=useState("")
 //   const[categoryFilter,setCategoryFilter]=useState("All")
 const[filteredList,setFilteredList]=useState([])
-const[currentPage,setCurrentPage]=useState(1)
+// const[currentPage,setCurrentPage]=useState(1)
 const itemsPerpage=8
 
 
@@ -108,10 +110,10 @@ const itemsPerpage=8
     }
  }
 
- const indexOfLastItem=currentPage *itemsPerpage
- const indexOfFirstItem=indexOfLastItem -itemsPerpage
- const currentProducts = filteredList.slice(indexOfFirstItem, indexOfLastItem);
-const totalPages = Math.ceil(filteredList.length / itemsPerpage);
+//  const indexOfLastItem=currentPage *itemsPerpage
+//  const indexOfFirstItem=indexOfLastItem -itemsPerpage
+//  const currentProducts = filteredList.slice(indexOfFirstItem, indexOfLastItem);
+// const totalPages = Math.ceil(filteredList.length / itemsPerpage);
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-md w-full overflow-hidden">
@@ -178,7 +180,7 @@ const totalPages = Math.ceil(filteredList.length / itemsPerpage);
             </thead>
 
             <tbody className="divide-y divide-gray-100">
-              {currentProducts.map((p) => (
+              {filteredList.map((p) => (
                 <tr
                   key={p.id}
                   className="hover:bg-gray-50 transition-colors duration-150"
@@ -244,7 +246,7 @@ const totalPages = Math.ceil(filteredList.length / itemsPerpage);
     {/* Prev Button */}
     <button
       disabled={currentPage === 1}
-      onClick={() => setCurrentPage(prev => prev - 1)}
+      onClick={() => fetchAllProducts(currentPage - 1)}
       className={`px-3 py-1 rounded-md border ${
         currentPage === 1
           ? "bg-gray-200 text-gray-400 cursor-not-allowed"
@@ -258,7 +260,7 @@ const totalPages = Math.ceil(filteredList.length / itemsPerpage);
     {[...Array(totalPages).keys()].map((number) => (
       <button
         key={number}
-        onClick={() => setCurrentPage(number + 1)}
+        onClick={() => fetchAllProducts(number + 1)}
         className={`px-3 py-1 rounded-md border ${
           currentPage === number + 1
             ? "bg-yellow-500 text-white"
@@ -272,7 +274,7 @@ const totalPages = Math.ceil(filteredList.length / itemsPerpage);
     {/* Next Button */}
     <button
       disabled={currentPage === totalPages}
-      onClick={() => setCurrentPage(prev => prev + 1)}
+      onClick={() => fetchAllProducts(currentPage + 1)}
       className={`px-3 py-1 rounded-md border ${
         currentPage === totalPages
           ? "bg-gray-200 text-gray-400 cursor-not-allowed"

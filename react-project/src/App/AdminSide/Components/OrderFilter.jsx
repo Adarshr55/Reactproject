@@ -7,9 +7,9 @@ function OrderFilter({orders,onFilterChange}) {
         const term=search.toLowerCase();
         const filtered=orders.filter((o)=>{
             const matchesSearch=
-            o.id.toLowerCase().includes(term) ||
-            o.username.toLowerCase().includes(term)
-
+             String(o.id).includes(term)  ||
+            o.fullname?.toLowerCase().includes(term) 
+            
             const matchesStatus=status==="All"||o.status===status;
             return matchesSearch && matchesStatus
         })

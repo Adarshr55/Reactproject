@@ -6,15 +6,21 @@ import React, {  createContext, useEffect, useState } from 'react'
 export const AuthContest = createContext()
 
 export const AuthProvider =({children})=>{
-    const [user,setUser]=useState(null)
+
+    const [user, setUser] = useState(() => {
+        const storedUser = localStorage.getItem("user")
+        return storedUser ? JSON.parse(storedUser) : null
+    })
+
+//     const [user,setUser]=useState(null)
 
 
-useEffect(()=>{
-    const storedUser=localStorage.getItem("user")
-    if(storedUser){
-        setUser(JSON.parse(storedUser))
-    } 
-},[])
+// useEffect(()=>{
+//     const storedUser=localStorage.getItem("user")
+//     if(storedUser){
+//         setUser(JSON.parse(storedUser))
+//     } 
+// },[])
 
 const login=(userData)=>{
     setUser(userData.user)

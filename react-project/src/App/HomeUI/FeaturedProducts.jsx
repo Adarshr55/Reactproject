@@ -16,7 +16,7 @@ function FeaturedProducts() {
         const res = await axios.get("http://localhost:8000/api/products/");
 
         // 🔥 Sort products by rating or popularity (top-rated first)
-        const sorted = res.data.sort((a, b) =>Number( b.rating) - Number (a.rating));
+        const sorted = res.data.results.sort((a, b) =>Number( b.rating) - Number (a.rating));
 
         // 🎯 Take only the top 4
         setProducts(sorted.slice(0, 4));

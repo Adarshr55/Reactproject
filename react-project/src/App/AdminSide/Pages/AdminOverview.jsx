@@ -3,114 +3,42 @@ import { DollarSign, Package, ShoppingCart, Users } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import OrderStatusDonut from '../Components/OrderStatusDonut'
 import RevenueLineChart from '../Components/RevenueLineChart'
+import API from '../../../services/api'
 
 function AdminOverview() {
     const[loading ,setLoading]=useState(true)
     const[error,setError]=useState(null)
-    const[totalUsers,setTotalUsers]=useState(0)
-    const[totalProducts,setTotalProducts]=useState(0)
-    const[totalOrders,setTotalOrders]=useState(0)
-    const[totalRevenue,setTotalRevenue]=useState(0)
-    const [pendingCount, setPendingCount] = useState(0);
-    const [shippedCount, setShippedCount] = useState(0);
-    const [deliveredCount, setDeliveredCount] = useState(0);
-    const [cancelledCount, setCancelledCount] = useState(0)
-    const [monthlyOrders, setMonthlyOrders] = useState(0);
-    const [monthlyRevenue, setMonthlyRevenue] = useState(0);
-    const [monthlyDelivered, setMonthlyDelivered] = useState(0);
-    const [monthlyPending, setMonthlyPending] = useState(0);
-    const [monthlyShipped, setMonthlyShipped] = useState(0);
-     const [monthlyCancelled, setMonthlyCancelled] = useState(0);
-     const[revenueTrend,setRevenueTrend]=useState([])
-     const[viewMode,setViewMode]=useState("overall")
+    const[stats, setStats] = useState(null)
+    const[viewMode,setViewMode]=useState("overall")
 
 
     useEffect(()=>{
-        const fetchOverviewData=async()=>{
+        const fetchStats=async()=>{
             try{
                 setLoading(true)
-                const[usersRes,productsRes,ordersRes]=await Promise.all([
-                    axios.get("http://localhost:5000/users"),
-                    axios.get("http://localhost:5000/products"),
-                    axios.get("http://localhost:5000/orders")
-                ])
+                const res = await API.get('/admin/stats/')
+                setStats(res.data)
+            }catch(err) {
+              console.error("Overview fetch error:", err)
+              setError("Failed to load dashboard info")
+            }finally{
+              setLoading(false)
+            }
+          }
+          fetchStats()
+        },[])
+;
 
-                const users=usersRes.data
-                const products=productsRes.data
-                const orders=ordersRes.data
+  
 
-                 setTotalUsers(users.length);
-                 setTotalProducts(products.length);
-                 setTotalOrders(orders.length);
-
-                 const revenue = orders
-                .filter((o) => o.status === "delivered")
-                .reduce((sum, o) => sum + o.total, 0);
-                setTotalRevenue(revenue);
-                setPendingCount(orders.filter((o) => o.status === "pending").length);
-                setShippedCount(orders.filter((o) => o.status === "shipped").length);
-                setDeliveredCount(orders.filter((o) => o.status === "delivered").length);
-                setCancelledCount(orders.filter((o) => o.status === "cancelled").length);
-                const now = new Date();
-                const currentMonth = now.getMonth();
-                const currentYear = now.getFullYear();
-
-           const thisMonthOrders = orders.filter((o) => {
-           const d = new Date(o.createdAt);
-           return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
-           });
-
-// monthly count
-       setMonthlyOrders(thisMonthOrders.length);
-
-// monthly revenue (delivered only)
-       const monthRev = thisMonthOrders
-      .filter((o) => o.status === "delivered")
-      .reduce((sum, o) => sum + o.total, 0);
-
-       setMonthlyRevenue(monthRev);
-// monthly statuses
-    setMonthlyDelivered(thisMonthOrders.filter((o) => o.status === "delivered").length);
-    setMonthlyPending(thisMonthOrders.filter((o) => o.status === "pending").length);
-    setMonthlyShipped(thisMonthOrders.filter((o) => o.status === "shipped").length);
-    setMonthlyCancelled(thisMonthOrders.filter((o) => o.status === "cancelled").length);
-    // ---- Monthly Revenue Trend for All 12 Months 
-const monthlyRevenueData = Array(12).fill(0); 
-
-orders.forEach((order) => {
-  const d = new Date(order.createdAt);
-  const month = d.getMonth(); // 0-11
-
-  if (order.status === "delivered") {
-    monthlyRevenueData[month] += order.total;
-  }
-});
-
-setRevenueTrend(monthlyRevenueData);           
-     }catch(err){
-      console.log("overview fetch error:",err)
-        setError("failed to load dashbord info")
-        }finally{
-          setLoading(false)
-        }
-        }
-        fetchOverviewData()
-    },[])
    
   if (loading)
     return <p className="p-6 text-gray-600">Loading dashboard...</p>;
 
   if (error)
     return <p className="p-6 text-red-500">{error}</p>;
+   if (!stats) return null
 
-
-  
-  const stats = [
-    { title: "Total Products", value: totalProducts, icon: <Package className="w-6 h-6 text-yellow-600" /> },
-    { title: "Total Users", value: totalUsers, icon: <Users className="w-6 h-6 text-yellow-600" /> },
-    { title: "Total Orders", value: totalOrders, icon: <ShoppingCart className="w-6 h-6 text-yellow-600" /> },
-    { title: "Total Revenue", value: `$${totalRevenue.toFixed(2)}`, icon: <DollarSign className="w-6 h-6 text-yellow-600" /> },
-  ];
   return (
     <div className="space-y-6 p-4 overflow-y-auto max-h-[calc(100vh-90px)]">
 
@@ -123,7 +51,7 @@ setRevenueTrend(monthlyRevenueData);
   <div className="rounded-lg p-5 shadow-sm text-white bg-[#3B82F6] flex justify-between items-center">
     <div>
       <h4 className="text-sm opacity-90">Total Products</h4>
-      <p className="text-2xl font-bold">{totalProducts}</p>
+      <p className="text-2xl font-bold">{stats.total_products}</p>
     </div>
     <div className="p-2 bg-white/20 rounded-full">
       <Package className="w-6 h-6" />
@@ -134,7 +62,7 @@ setRevenueTrend(monthlyRevenueData);
   <div className="rounded-lg p-5 shadow-sm text-white bg-[#22C55E] flex justify-between items-center">
     <div>
       <h4 className="text-sm opacity-90">Total Users</h4>
-      <p className="text-2xl font-bold">{totalUsers}</p>
+      <p className="text-2xl font-bold">{stats.total_users}</p>
     </div>
     <div className="p-2 bg-white/20 rounded-full">
       <Users className="w-6 h-6" />
@@ -145,7 +73,7 @@ setRevenueTrend(monthlyRevenueData);
   <div className="rounded-lg p-5 shadow-sm text-white bg-[#F59E0B] flex justify-between items-center">
     <div>
       <h4 className="text-sm opacity-90">Total Orders</h4>
-      <p className="text-2xl font-bold">{totalOrders}</p>
+      <p className="text-2xl font-bold">{stats.total_orders}</p>
     </div>
     <div className="p-2 bg-white/20 rounded-full">
       <ShoppingCart className="w-6 h-6" />
@@ -156,7 +84,7 @@ setRevenueTrend(monthlyRevenueData);
   <div className="rounded-lg p-5 shadow-sm text-white bg-[#8B5CF6] flex justify-between items-center">
     <div>
       <h4 className="text-sm opacity-90">Total Revenue</h4>
-      <p className="text-2xl font-bold">${totalRevenue.toFixed(2)}</p>
+      <p className="text-2xl font-bold">${Number(stats.total_revenue).toFixed(2)}</p>
     </div>
     <div className="p-2 bg-white/20 rounded-full">
       <DollarSign className="w-6 h-6" />
@@ -202,25 +130,25 @@ setRevenueTrend(monthlyRevenueData);
   {/* Orders This Month */}
   <div className="rounded-lg p-4 shadow-sm bg-[#8B5CF6] text-white">
     <h3 className="text-sm">Orders This Month</h3>
-    <p className="text-2xl font-bold">{monthlyOrders}</p>
+    <p className="text-2xl font-bold">{stats.monthly_orders}</p>
   </div>
 
   {/* Revenue This Month */}
   <div className="rounded-lg p-4 shadow-sm bg-[#10B981] text-white">
     <h3 className="text-sm">Revenue This Month</h3>
-    <p className="text-2xl font-bold">${monthlyRevenue.toFixed(2)}</p>
+    <p className="text-2xl font-bold">${Number(stats.monthly_revenue).toFixed(2)}</p>
   </div>
 
   {/* Delivered This Month */}
   <div className="rounded-lg p-4 shadow-sm bg-[#22C55E] text-white">
     <h3 className="text-sm">Delivered This Month</h3>
-    <p className="text-2xl font-bold">{monthlyDelivered}</p>
+    <p className="text-2xl font-bold">{stats.monthly_delivered}</p>
   </div>
 
   {/* Pending This Month */}
   <div className="rounded-lg p-4 shadow-sm bg-[#FBBF24] text-white">
     <h3 className="text-sm">Pending This Month</h3>
-    <p className="text-2xl font-bold">{monthlyPending}</p>
+    <p className="text-2xl font-bold">{stats.monthly_pending}</p>
   </div>
 
 </div>
@@ -230,13 +158,13 @@ setRevenueTrend(monthlyRevenueData);
   {/* Shipped This Month */}
   <div className="rounded-lg p-4 shadow-sm bg-[#3B82F6] text-white">
     <h3 className="text-sm">Shipped This Month</h3>
-    <p className="text-2xl font-bold">{monthlyShipped}</p>
+    <p className="text-2xl font-bold">{stats.monthly_shipped}</p>
   </div>
 
   {/* Cancelled This Month */}
   <div className="rounded-lg p-4 shadow-sm bg-[#EF4444] text-white">
     <h3 className="text-sm">Cancelled This Month</h3>
-    <p className="text-2xl font-bold">{monthlyCancelled}</p>
+    <p className="text-2xl font-bold">{stats.monthly_cancelled}</p>
   </div>
 
 </div>
@@ -270,11 +198,11 @@ setRevenueTrend(monthlyRevenueData);
   {/* Chart Wrapper */}
   <div className="flex justify-center items-center">
     <OrderStatusDonut
-      title={viewMode === "overall" ? "Overall Order Status" : "This Month Order Status"}
-      pending={viewMode === "overall" ? pendingCount : monthlyPending}
-      shipped={viewMode === "overall" ? shippedCount : monthlyShipped}
-      delivered={viewMode === "overall" ? deliveredCount : monthlyDelivered}
-      cancelled={viewMode === "overall" ? cancelledCount : monthlyCancelled}
+     title={viewMode === "overall" ? "Overall Order Status" : "This Month Order Status"}
+     pending={viewMode === "overall" ? stats.pending : stats.monthly_pending}
+     shipped={viewMode === "overall" ? stats.shipped : stats.monthly_shipped}
+     delivered={viewMode === "overall" ? stats.delivered : stats.monthly_delivered}
+     cancelled={viewMode === "overall" ? stats.cancelled : stats.monthly_cancelled}
     />
   </div>
 
@@ -287,7 +215,7 @@ setRevenueTrend(monthlyRevenueData);
     Monthly Revenue Trend
   </h2>
 
-  <RevenueLineChart data={revenueTrend} />
+  <RevenueLineChart data={stats.revenue_trend} />
 </div>
 
 </div>

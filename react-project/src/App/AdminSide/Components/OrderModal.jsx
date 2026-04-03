@@ -30,11 +30,11 @@ function OrderModal({ isOpen, onClose, order }) {
 
                 {/*  INFO */}
                 <div className="mb-4 text-sm space-y-1">
-                    <p><span className="font-semibold text-gray-700">User:</span> {order.username}</p>
+                    <p><span className="font-semibold text-gray-700">User:</span> {order.fullname}</p>
 
                     <p>
                         <span className="font-semibold text-gray-700">Date:</span>{" "}
-                        {new Date(order.createdAt).toLocaleString()}
+                        {new Date(order.created_at).toLocaleString()}
                     </p>
 
                     <p className="flex items-center gap-2">
@@ -51,7 +51,7 @@ function OrderModal({ isOpen, onClose, order }) {
                 <div className="space-y-3 max-h-48 overflow-y-auto pr-2">
                     {order.items.map((item) => (
                         <div
-                            key={item.productId}
+                            key={item.id}
                             className="flex items-center gap-3 border rounded-lg p-2 hover:bg-gray-50 transition"
                         >
                             <img
@@ -63,12 +63,12 @@ function OrderModal({ isOpen, onClose, order }) {
                             <div className="flex-1">
                                 <p className="font-medium text-gray-800">{item.name}</p>
                                 <p className="text-xs text-gray-500">
-                                    Qty: {item.quantity} × ${item.price}
+                                    Qty: {item.quantity} × ${Number(item.price).toFixed(2)}
                                 </p>
                             </div>
 
                             <p className="font-semibold text-gray-700">
-                                ${(item.quantity * item.price).toFixed(2)}
+                                ${(item.quantity * Number( item.price)).toFixed(2)}
                             </p>
                         </div>
                     ))}
@@ -78,17 +78,17 @@ function OrderModal({ isOpen, onClose, order }) {
                 <h3 className="font-semibold text-gray-800 mt-5 mb-2">Shipping Address</h3>
 
                 <div className="text-sm space-y-1 text-gray-700">
-                    <p><span className="font-semibold">Name:</span> {order.address.fullname}</p>
-                    <p><span className="font-semibold">Address:</span> {order.address.address}</p>
-                    <p><span className="font-semibold">City:</span> {order.address.city}</p>
-                    <p><span className="font-semibold">Phone:</span> {order.address.phone}</p>
-                    <p><span className="font-semibold">Payment:</span> {order.address.payment}</p>
+                    <p><span className="font-semibold">Name:</span> {order.fullname}</p>
+                    <p><span className="font-semibold">Address:</span> {order.address}</p>
+                    <p><span className="font-semibold">City:</span> {order.city}</p>
+                    <p><span className="font-semibold">Phone:</span> {order.phone}</p>
+                    <p><span className="font-semibold">Payment:</span> {order.payment}</p>
                 </div>
 
                 {/* TOTAL */}
                 <div className="mt-5 pt-3 border-t flex justify-between text-lg font-semibold text-gray-800">
                     <span>Total</span>
-                    <span>${order.total.toFixed(2)}</span>
+                    <span>${Number(order.total).toFixed(2)}</span>
                 </div>
 
                 {/* CLOSE BUTTON */}

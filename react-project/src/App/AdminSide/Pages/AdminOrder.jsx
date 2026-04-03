@@ -4,6 +4,7 @@ import OrderModal from "../Components/OrderModal";
 import OrderFilter from "../Components/OrderFilter";
 import toast from "react-hot-toast";
 import { confirmToast } from "../Components/Utilites/ConfirmToast";
+import API from '../../../services/api' 
 
 const STATUSES = ["pending", "shipped", "delivered", "cancelled"];
 
@@ -16,15 +17,18 @@ function AdminOrder() {
   const [filteredOrder, setFilteredOrder] = useState([]);
   const [updatingId, setUpdatingId] = useState(null);
   const [currentPage,setCurrentPage]=useState(1)
+  const [totalPages, setTotalPages] = useState(1)
   const itemsPerpage=5
 
 
   // Fetch orders
-  const fetchOrders = async () => {
+  const fetchOrders = async (page=1) => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/orders");
-      setOrders(res.data);
+      const res = await API.get(`/admin/orders/?page=${page}`)
+      setOrders(res.data.results);
+      setTotalPages(res.data.total_pages);
+      setCurrentPage(res.data.page);
       setError(null);
     } catch (err) {
       console.error("Error Fetching Orders", err);
@@ -42,21 +46,35 @@ function AdminOrder() {
     setFilteredOrder(orders);
   }, [orders]);
 
-  useEffect(()=>{
-    setCurrentPage(1)
-  },[filteredOrder])
+  // useEffect(()=>{
+  //   setCurrentPage(1)
+  // },[filteredOrder])
 
-  const indexOfLast=currentPage* itemsPerpage
-  const indexOfFirst=indexOfLast- itemsPerpage
-  const currentOrders=filteredOrder.slice(indexOfFirst,indexOfLast)
-  const totalPages=Math.ceil(filteredOrder.length /itemsPerpage)
+  // const indexOfLast=currentPage* itemsPerpage
+  // const indexOfFirst=indexOfLast- itemsPerpage
+  // const currentOrders=filteredOrder.slice(indexOfFirst,indexOfLast)
+  // const totalPages=Math.ceil(filteredOrder.length /itemsPerpage)
 
-  const nextPage=()=>{
-    if(currentPage<totalPages)setCurrentPage((p)=>p+1)
+ const nextPage = () => {
+  if (currentPage < totalPages) {
+    fetchOrders(currentPage + 1);
   }
-  const prevPage=()=>{
-    if(currentPage>1)setCurrentPage((p)=>p-1)
+};
+ const prevPage = () => {
+  if (currentPage > 1) {
+    fetchOrders(currentPage - 1);
   }
+};
+
+  const sortOrders = (ordersList) => {
+  const priority = { pending: 1, shipped: 2, delivered: 3, cancelled: 4 }
+  return [...ordersList].sort((a, b) => {
+    if (priority[a.status] !== priority[b.status])
+      return priority[a.status] - priority[b.status]
+    return new Date(b.created_at) - new Date(a.created_at)
+  })
+}
+
 
   // Update Status with optimistic UI
   const updateOrderStatus = async (id, newStatus) => {
@@ -65,21 +83,16 @@ function AdminOrder() {
     const prevOrders = [...orders];
     const prevFiltered = [...filteredOrder];
 
-    const optimisticOrders = orders.map((o) =>
-      o.id === id ? { ...o, status: newStatus } : o
-    );
-    const optimisticFiltered = filteredOrder.map((o) =>
-      o.id === id ? { ...o, status: newStatus } : o
-    );
+    // sort immediately after optimistic update
+  const optimisticOrders = sortOrders(orders.map((o) => o.id === id ? { ...o, status: newStatus } : o))
+  const optimisticFiltered = sortOrders(filteredOrder.map((o) => o.id === id ? { ...o, status: newStatus } : o))
 
     setOrders(optimisticOrders);
     setFilteredOrder(optimisticFiltered);
     setUpdatingId(id);
 
     try {
-      await axios.patch(`http://localhost:5000/orders/${id}`, {
-        status: newStatus,
-      });
+      await API.patch(`/admin/orders/${id}/`, { status: newStatus })
       toast.success("Order status updated");
     } catch (err) {
       console.error("Update failed", err);
@@ -100,7 +113,7 @@ function AdminOrder() {
             setOrders((o)=>o.filter((ord)=>ord.id !==id))
             setFilteredOrder((o)=>o.filter((ord)=>ord.id !==id))
 
-            axios.delete(`http://localhost:5000/orders/${id}`)
+            API.delete(`/admin/orders/${id}/`)
             toast.success("order deleted successfully")
         }
         catch(err){
@@ -156,7 +169,7 @@ function AdminOrder() {
               </thead>
 
               <tbody className="px-4 py-3 text-left">
-                {currentOrders.map((o) => (
+                {orders.map((o) => (
                   <tr
                     key={o.id}
                     className="hover:bg-gray-50 cursor-pointer transition"
@@ -169,9 +182,9 @@ function AdminOrder() {
                       {o.id}
                     </td>
 
-                    <td className="px-4 py-3">{o.username}</td>
+                    <td className="px-4 py-3">{o.fullname}</td>
 
-                    <td className="px-4 py-3">${o.total.toFixed(2)}</td>
+                    <td className="px-4 py-3">${Number(o.total).toFixed(2)}</td>
 
                     {/* STATUS BADGE ONLY */}
                     <td className="px-4 py-3">
@@ -185,7 +198,7 @@ function AdminOrder() {
                     </td>
 
                     <td className="px-4 py-3">
-                      {new Date(o.createdAt).toLocaleString()}
+                      {new Date(o.created_at).toLocaleString()}
                     </td>
 
                     {/* ACTION COLUMN */}
