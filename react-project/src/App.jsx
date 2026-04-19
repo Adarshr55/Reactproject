@@ -8,7 +8,7 @@
   import ProductList from './App/ProductList'
   import Navbar from './App/Navbar'
   import ProductDetails from './App/ProductDetails'
-import Checkout from './App/CheckOut/CheckOut'
+import Checkout from './App/CheckOut/Checkout'
 import OrderSuccess from './App/CheckOut/OrderSuccess'
 import MyOrder from './App/CheckOut/MyOrder'
 import { Toaster } from 'react-hot-toast'
