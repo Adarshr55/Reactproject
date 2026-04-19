@@ -8,7 +8,7 @@ import { AuthContest } from '../User-Auth/Authcontest'
 import toast from 'react-hot-toast'
 import { WishListContext } from './Wishlist/WishlistContext'
 import { Heart } from 'lucide-react'
-import Pagination from '../Components/Pagination'  
+import Pagination from '../components/Pagination'  
 import API from '../services/api'
 
 function Product() {
