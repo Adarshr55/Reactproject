@@ -27,7 +27,7 @@ function ProductDetails() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(`http://localhost:8000/api/products/${id}/`)
+        const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api'}/products/${id}/`)
         if (res.data.is_active === false) setError("This product is no longer available")
         else {
           setProduct(res.data)

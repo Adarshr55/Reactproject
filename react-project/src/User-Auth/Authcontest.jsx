@@ -35,7 +35,7 @@ const logout=async()=>{
         const refresh =localStorage.getItem('refresh')
         const access=localStorage.getItem('access')
 
-        await axios.post("http://localhost:8000/api/auth/logout/",{refresh},{headers:{Authorization: `Bearer ${access}`}
+        await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api'}/auth/logout/`,{refresh},{headers:{Authorization: `Bearer ${access}`}
         })
 
     }catch (error){

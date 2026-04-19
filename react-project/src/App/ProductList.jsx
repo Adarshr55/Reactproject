@@ -38,7 +38,7 @@ function Product() {
       if (sortVal) params.append('sort', sortVal)
 
       // const res = await axios.get(
-      //   `http://localhost:8000/api/products/?${params}`
+      //   `import.meta.env.VITE_API_URL || "http://localhost:8000/api"/products/?${params}`
       // )
       const res = await API.get(`/products/?${params}`)
       setProducts(res.data.results)

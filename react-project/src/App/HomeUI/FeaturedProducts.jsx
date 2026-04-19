@@ -13,7 +13,7 @@ function FeaturedProducts() {
   useEffect(() => {
     const fetchFeaturedProducts = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/api/products/");
+        const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api'}/products/`);
 
         // 🔥 Sort products by rating or popularity (top-rated first)
         const sorted = res.data.results.sort((a, b) =>Number( b.rating) - Number (a.rating));

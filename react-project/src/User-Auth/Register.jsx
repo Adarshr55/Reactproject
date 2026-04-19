@@ -38,7 +38,7 @@ const navigate=useNavigate()
     validationSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       try {
-        await axios.post("http://localhost:8000/api/auth/register/",{
+        await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api'}/auth/register/`,{
             username: values.username.trim(),
             email: values.email.trim(),
             password: values.password,
